@@ -5,9 +5,10 @@ define windows_firewall::rule(
 ) {
 
     validate_re($ensure,['^(present|absent)$'])
-	validate_re($advanced,['^(yes|no)$'])
+    validate_re($advanced,['^(yes|no)$'])
 
-    $attr_value = "C:\\Windows\\System32\\netsh.exe advfirewall firewall show rule name=\"${attr_name}\""
-    notify { "${attr_value}": }
+    exec { 'test':
+        command => template('windows_firewall/check_rule_exist.ps1'),
+        provider => powershell,
+    }
 }
-CoreNet-ICMP6-DU-In
