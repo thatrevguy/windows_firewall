@@ -1,6 +1,6 @@
 define windows_firewall::rule(
     $ensure = 'present',
-    $display_name = '',
+    $display_name = $title,
     $description = '',
     $application_name = '',
     $service_name = '',
@@ -23,7 +23,6 @@ define windows_firewall::rule(
 
     validate_re($ensure,['^(present|absent)$'])
 
-    $check_type = 'Ensure'
     if $ensure == 'present' {
         $command = 'windows_firewall/add_rule.ps1'
         $unless = template('windows_firewall/get_rule.ps1')
@@ -42,15 +41,15 @@ define windows_firewall::rule(
         provider => powershell,
     }
 
-    $check_type = 'Prune'
     if $ensure == 'present' {
+
         exec { "Rule property value mismatch found":
             command => template('windows_firewall/set_rule.ps1'),
             unless => template('windows_firewall/validate_rule.ps1'),
             provider => powershell,
         }
 
-        exec { "Rule duplicates found":
+        exec { "Rule duplicate found":
             command => template('windows_firewall/prune_rule.ps1'),
             unless => template('windows_firewall/get_rule.ps1'),
             provider => powershell,

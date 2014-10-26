@@ -2,4 +2,4 @@
 <%= scope.function_template(["windows_firewall/rule_object.ps1"]) %>
 
 #Check if rule name exists
-if($FoundRules.Count -eq 0){ exit 1 }
+if($FoundRules.Count -gt 1){ exit 1 }

@@ -13,10 +13,9 @@ class windows_firewall (
                 out_policy => $out_policy,
             }
 
-            windows_firewall::rule { 'Test Rule':
+            windows_firewall::rule { 'Puppet Rule':
                 ensure => 'present',
-                attr_name => 'testrule',
-                attr_value => 'v2.22|Action=Allow|Active=TRUE|Dir=In|Protocol=1|Name=test rule|Desc=test rule|',
+                protocol => 'UDP',
             }
 
             $firewall_name = 'MpsSvc'
