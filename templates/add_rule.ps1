@@ -1,4 +1,5 @@
-$Name = '<%= @attr_name %>'
-$Value = '<%= @attr_value %>'
-$Key = "HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules"
-New-ItemProperty -Path Registry::$Key -Name $Name -PropertyType String -Value $Value
+#Load rule values template using erb
+<%= scope.function_template(["windows_firewall/rule_object.ps1"]) %>
+
+#Add Rule
+$Firewall.Rules.Add($Rule)
