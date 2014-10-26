@@ -22,6 +22,15 @@ define windows_firewall::rule(
 ) {
 
     validate_re($ensure,['^(present|absent)$'])
+    validate_re($display_name,['^.*$'])
+    validate_re($protocol,['^(ICMPv4|IGMP|TCP|UDP|IPv6|IPv6Route|IPv6Frag|GRE|ICMPv6|IPv6NoNxt|IPv6Opts|VRRP|PGM|L2TP)$'])
+    validate_re($direction,['^(In|Out)$'])
+    validate_re($interface_types,['^(((Wireless|Lan|RemoteAccess)(,(?!$))?(?!\3)){1,2}|All)$'])
+    validate_re($enabled,['^(True|False)$'])
+    validate_re($profiles,['^((Domain|Private|Public)(,(?!$))?(?!.*\2)){1,3}$'])
+    validate_re($edge_traversal,['^(True|False)$'])
+    validate_re($action,['^(Allow|Block)$'])
+    validate_re($edge_traversal_options,['^(Block|Allow|Defer to App|Defer to User)$'])
 
     if $ensure == 'present' {
         $command = 'windows_firewall/add_rule.ps1'
