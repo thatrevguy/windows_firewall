@@ -13,9 +13,10 @@ class windows_firewall (
                 out_policy => $out_policy,
             }
 
-            windows_firewall::rule { 'Puppet Rule':
+            windows_firewall::rule { 'Puppet ICMPv4 Ping Rule':
                 ensure => 'present',
-                protocol => 'UDP',
+                protocol => 'ICMPv4',
+                icmp_types_and_codes => '8:*',
             }
 
             $firewall_name = 'MpsSvc'

@@ -52,7 +52,32 @@ $EdgeTraversalOptionsHash = @{"Block"=0;"Allow"=1;"Defer to App"=2;"Defer to Use
 $EdgeTraversalOptions = $EdgeTraversalOptionsHash.Get_Item($EdgeTraversalOptions)
 
 #Build hash table with all rule properties
-$RuleProperties = @{Name = $Name; Description = $Description; ApplicationName = $ApplicationName; ServiceName = $ServiceName; Protocol = $Protocol; LocalPorts = $LocalPorts; RemotePorts = $RemotePorts; LocalAddresses = $LocalAddresses; RemoteAddresses = $RemoteAddresses; IcmpTypesAndCodes = $IcmpTypesAndCodes; Direction = $Direction; Interfaces = $Interfaces; InterfaceTypes = $InterfaceTypes; Enabled = $Enabled; Grouping = $Grouping; Profiles = $Profiles; EdgeTraversal = $EdgeTraversal; Action = $Action; EdgeTraversalOptions = $EdgeTraversalOptions; LocalAppPackageId = ''; LocalUserOwner = ''; LocalUserAuthorizedList = ''; RemoteUserAuthorizedList = ''; RemoteMachineAuthorizedList = ''; SecureFlags = 0}
+$RuleProperties = [System.Collections.Specialized.OrderedDictionary]@{}
+$RuleProperties.Add("Name", $Name) 
+$RuleProperties.Add("Description", $Description)
+$RuleProperties.Add("ApplicationName", $ApplicationName)
+$RuleProperties.Add("ServiceName", $ServiceName)
+$RuleProperties.Add("Protocol", $Protocol)
+$RuleProperties.Add("LocalPorts", $LocalPorts)
+$RuleProperties.Add("RemotePorts", $RemotePorts)
+$RuleProperties.Add("LocalAddresses", $LocalAddresses)
+$RuleProperties.Add("RemoteAddresses", $RemoteAddresses)
+$RuleProperties.Add("IcmpTypesAndCodes", $IcmpTypesAndCodes)
+$RuleProperties.Add("Direction", $Direction)
+$RuleProperties.Add("Interfaces", $Interfaces)
+$RuleProperties.Add("InterfaceTypes", $InterfaceTypes)
+$RuleProperties.Add("Enabled", $Enabled)
+$RuleProperties.Add("Grouping", $Grouping)
+$RuleProperties.Add("Profiles", $Profiles)
+$RuleProperties.Add("EdgeTraversal", $EdgeTraversal)
+$RuleProperties.Add("Action", $Action)
+$RuleProperties.Add("EdgeTraversalOptions", $EdgeTraversalOptions)
+$RuleProperties.Add("LocalAppPackageId", '')
+$RuleProperties.Add("LocalUserOwner", '')
+$RuleProperties.Add("LocalUserAuthorizedList", '')
+$RuleProperties.Add("RemoteUserAuthorizedList", '')
+$RuleProperties.Add("RemoteMachineAuthorizedList", '')
+$RuleProperties.Add("SecureFlags", 0)
 
 #Build rule object
 $Rule = New-Object -ComObject HNetCfg.FWRule
