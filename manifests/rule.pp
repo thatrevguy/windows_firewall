@@ -51,7 +51,7 @@ define windows_firewall::rule(
 
         exec { "Rule duplicate found":
             command => template('windows_firewall/prune_rule.ps1'),
-            unless => template('windows_firewall/get_rule.ps1'),
+            unless => template('windows_firewall/duplicate_check.ps1'),
             provider => powershell,
         }
     }
