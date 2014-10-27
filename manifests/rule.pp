@@ -27,7 +27,7 @@ define windows_firewall::rule(
     validate_re($direction,['^(In|Out|1|2)$'])
     validate_re($interface_types,['^(((Wireless|Lan|RemoteAccess)(,(?!$))?(?!\3)){1,2}|All)$'])
     validate_re($enabled,['^(True|False)$'])
-    validate_re($profiles,['^(((Domain|Private|Public)(,(?!$))?(?!.*\3)){1,3}|1|3|7|2147483647)$'])
+    validate_re($profiles,['^(((Domain|Private|Public)(,(?!$))?(?!.*\3)){1,3}|1|2|3|4|5|6|7|2147483647)$'])
     validate_re($edge_traversal,['^(True|False)$'])
     validate_re($action,['^(Allow|Block|1|0)$'])
     validate_re($edge_traversal_options,['^(Block|Allow|Defer to App|Defer to User|0|1|2|3)$'])
