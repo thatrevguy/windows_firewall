@@ -169,28 +169,28 @@ Specifies edge traversal options. Following options are valid:
 ###Templates
 
 #### [`template(windows_firewall\rule_object.ps1)`]
-Loads and prepares all variables from current scope of [`windows_firewall::rule`] instance for HNetCfg consumption.
+Loads and prepares all variables from current scope of [`windows_firewall::rule`] instance for consumption by HNetCfg.FwPolicy2 ComObject.
 
 #### [`template(windows_firewall\add_rule.ps1)`]
 Adds HNetCfg.FWRule object prepared by [`template(windows_firewall\rule_object.ps1)`].
 
 #### [`template(windows_firewall\set_rule.ps1)`]
-Sets rule property values prepared by [`template(windows_firewall\rule_object.ps1)`] on all matching rule names in HNetCfg.FwPolicy2.Rules. Only differing property values are updated.
+Sets rule property values prepared by [`template(windows_firewall\rule_object.ps1)`] on all matching rule names in HNetCfg.FwPolicy2 rules. Only differing property values are updated.
 
 #### [`template(windows_firewall\remove_rule.ps1)`]
-Removes all rules with matching name property from [`template(windows_firewall\rule_object.ps1)`] in HNetCfg.FwPolicy2.Rules.
+Removes all rules with matching name property from [`template(windows_firewall\rule_object.ps1)`] in HNetCfg.FwPolicy2 rules.
 
 #### [`template(windows_firewall\validate_rule.ps1)`]
-Returns exit code 1 if rule property values prepared by [`template(windows_firewall\rule_object.ps1)`] mismatch any rule properties with the name in HNetCfg.FwPolicy2.Rules.
+Returns exit code 1 if rule property values prepared by [`template(windows_firewall\rule_object.ps1)`] mismatch any rule properties with the name in HNetCfg.FwPolicy2 rules.
 
 #### [`template(windows_firewall\prune_rule.ps1)`]
-Removes all rules with matching name property from [`template(windows_firewall\rule_object.ps1)`] in HNetCfg.FwPolicy2.Rules except for last instance.
+Removes all rules with matching name property from [`template(windows_firewall\rule_object.ps1)`] in HNetCfg.FwPolicy2 rules except for last instance.
 
 #### [`template(windows_firewall\get_rule.ps1)`]
-Returns exit code 1 if no matching rule name from [`template(windows_firewall\rule_object.ps1)`] are found in HNetCfg.FwPolicy2.Rules.
+Returns exit code 1 if no matching rule name from [`template(windows_firewall\rule_object.ps1)`] are found in HNetCfg.FwPolicy2 rules.
 
 #### [`template(windows_firewall\duplicate_rule.ps1)`]
-Returns exit code 1 if more than 1 matching rule name from [`template(windows_firewall\rule_object.ps1)`] are found in HNetCfg.FwPolicy2.Rules.
+Returns exit code 1 if more than 1 matching rule name from [`template(windows_firewall\rule_object.ps1)`] are found in HNetCfg.FwPolicy2 rules.
 
 ##Reference
 
