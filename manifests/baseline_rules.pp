@@ -180,7 +180,7 @@ class windows_firewall::baseline_rules {
         edge_traversal_options => '0',
     }->
     windows_firewall::rule { 'Core Networking - Destination Unreachable Fragmentation Needed (ICMPv4-In)':
-        description => 'Destination Unreachable Fragmentation Needed error messages are sent from any node that a packet traverses which is unable to forward the packet because fragmentation was needed and the don\'t fragment bit was set.',
+        description => 'Destination Unreachable Fragmentation Needed error messages are sent from any node that a packet traverses which is unable to forward the packet because fragmentation was needed and the don\' + [char]0x2019 + \'t fragment bit was set.',
         application_name => 'System',
         service_name => '',
         protocol => '1',
