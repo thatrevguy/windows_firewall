@@ -23,7 +23,7 @@ define windows_firewall::rule(
 
     validate_re($ensure,['^(present|absent)$'])
     validate_re($display_name,['^.*$'])
-    validate_re($protocol,['^(ICMPv4|IGMP|TCP|UDP|IPv6|IPv6Route|IPv6Frag|GRE|ICMPv6|IPv6NoNxt|IPv6Opts|VRRP|PGM|L2TP|1|2|6|17|41|43|44|47|48|59|60|112|113|115)$'])
+    validate_re($protocol,['^(ICMPv4|IGMP|TCP|UDP|IPv6|IPv6Route|IPv6Frag|GRE|ICMPv6|IPv6NoNxt|IPv6Opts|VRRP|PGM|L2TP|1|2|6|17|41|43|44|47|58|59|60|112|113|115)$'])
     validate_re($direction,['^(In|Out|1|2)$'])
     validate_re($interface_types,['^(((Wireless|Lan|RemoteAccess)(,(?!$))?(?!\3)){1,2}|All)$'])
     validate_re($enabled,['^(True|False)$'])

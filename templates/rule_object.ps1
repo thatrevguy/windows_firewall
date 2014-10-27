@@ -20,7 +20,7 @@ $Action = '<%= @action %>'
 $EdgeTraversalOptions = '<%= @edge_traversal_options %>'
 
 #Convert protocol string to int
-$ProtocolHash = @{"ICMPv4"=1;"IGMP"=2;"TCP"=6;"UDP"=17;"IPv6"=41;"IPv6Route"=43;"IPv6Frag"=44;"GRE"=47;"ICMPv6"=48;"IPv6NoNxt"=59;"IPv6Opts"=60;"VRRP"=112; "PGM"=113;"L2TP"=115}
+$ProtocolHash = @{"ICMPv4"=1;"IGMP"=2;"TCP"=6;"UDP"=17;"IPv6"=41;"IPv6Route"=43;"IPv6Frag"=44;"GRE"=47;"ICMPv6"=58;"IPv6NoNxt"=59;"IPv6Opts"=60;"VRRP"=112; "PGM"=113;"L2TP"=115}
 if($ProtocolHash.Get_Item($Protocol)){$Protocol = $ProtocolHash.Get_Item($Protocol)}
 
 #Convert direction string to int
