@@ -8,9 +8,7 @@
     * [Beginning with windows_firewall - Installation](#beginning-with-windows_firewall)
 4. [Usage - Classes, defined types, and their parameters available for configuration](#usage)
     * [Classes](#classes)
-        * [windows_firewall](#windows_firewall)
     * [Defined Types](#defined-types)
-        * [windows_firewall::rule](#windows_firewall-rule)
 5. [Implementation - An under-the-hood peek at what this module is doing](#implementation)
     * [Templates](#templates)
 6. [Limitations - OS compatibility, etc.](#limitations)
@@ -198,11 +196,11 @@ Returns exit code 1 if more than 1 matching rule name from [`template(windows_fi
 
 ###Classes
 ####Public Classes
-* [`windows_firewall`](#class-windows-firewall): Main class of module for managing state of windows firewall profiles and their policies.
+* [`windows_firewall`](#classes): Main class of module for managing state of windows firewall profiles and their policies.
 
 ###Defined Types
 ####Public Types:
-* [`windows_firewall::rule`](#type-windows-firewall-rule): Manages configuration of firewall rules.
+* [`windows_firewall::rule`](#defined-types): Manages configuration of firewall rules.
 
 #Limitations
 Requires at least powershell v2 on clients.
