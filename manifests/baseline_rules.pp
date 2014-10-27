@@ -39,7 +39,7 @@ class windows_firewall::baseline_rules {
         action => '1',
         edge_traversal_options => '0',
     }
-    windows_firewall::rule { 'SNMP Service (UDP In)':
+    windows_firewall::rule { 'SNMP Service LocalSubnet (UDP In)':
         description => 'Inbound rule for the Simple Network Management Protocol (SNMP) Service to allow SNMP traffic. [UDP 161]',
         application_name => 'C:\\Windows\\system32\\snmp.exe',
         service_name => 'SNMP',
