@@ -6,11 +6,11 @@
 2. [Module Description - What does this module do?](#module-description)
 3. [Setup - Basics of getting started with windows_firewall](#setup)
     * [Beginning with windows_firewall - Installation](#beginning-with-windows_firewall)
-    * [Configuring a rule - Basic options for getting started](#configure-a-rule)
 4. [Usage - Classes, defined types, and their parameters available for configuration](#usage)
-    * [Classes and Defined Types](#classes-and-defined-types)
-        * [Class: windows_firewall](#class-windows_firewall)
-        * [Defined Type: windows_firewall::rule](#defined-type-windows_firewall::rule)
+    * [Classes](#classes)
+        * [windows_firewall](#class-windows_firewall)
+	* [Defined Types]#(defined-types)
+        * [windows_firewall::rule](#defined-type-windows_firewall::rule)
 5. [Implementation - An under-the-hood peek at what this module is doing](#implementation)
     * [Templates](#templates)
 6. [Limitations - OS compatibility, etc.](#limitations)
@@ -55,9 +55,9 @@ Once the windows firewall is managed you can start managing the rules and except
 
 ##Usage
 
-###Classes and Defined Types:
+###Classes
 
-####Class: `windows_firewall`
+####`windows_firewall`
 
 **Parameters within `windows_firewall`:**
 
@@ -70,7 +70,9 @@ Determines inbound policy for all profiles. If not included, module will assume 
 #####`out_policy`
 Determines outbound policy for all profiles. If not included, module will assume that inbound policy is AllowOutbound. Valid values are 'AllowOutbound' and 'BlockOutbound'.
 
-####Defined Type: `windows_firewall::rule`
+###Defined Types
+
+####`windows_firewall::rule`
 
 **Parameters within `windows_firewall::rule`:**
 
