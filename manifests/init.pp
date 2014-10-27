@@ -7,11 +7,11 @@ class windows_firewall (
         /(Windows Server 2008|Windows Server 2012)/: {
             class { 'windows_firewall::profile':
                 profile_state => $profile_state,
-            }
+            }->
             class { 'windows_firewall::policy':
                 in_policy => $in_policy,
                 out_policy => $out_policy,
-            }
+            }->
             class { 'windows_firewall::baseline_rules': }
 
             $firewall_name = 'MpsSvc'
