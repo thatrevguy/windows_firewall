@@ -9,7 +9,7 @@
 4. [Usage - Classes, defined types, and their parameters available for configuration](#usage)
     * [Classes](#classes)
         * [windows_firewall](#class-windows_firewall)
-	* [Defined Types]#(defined-types)
+    * [Defined Types]#(defined-types)
         * [windows_firewall::rule](#defined-type-windows_firewall::rule)
 5. [Implementation - An under-the-hood peek at what this module is doing](#implementation)
     * [Templates](#templates)
