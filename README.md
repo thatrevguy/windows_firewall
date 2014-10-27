@@ -118,9 +118,7 @@ Specifies local hosts that can use this rule. Defaults to '*'.
 Specifies remote hosts that can use this rule. Defaults to '*'.
 
 #####`icmp_types_and_codes`
-Specifies types and codes if protocol is ICMP. Defaults to ''. 
-Format is 'Type:Code'. Valid example for echo request is '8:*'. 
-Default for ICMP is '*'. All other protocols default to ''. Do not attempt to set if protocol is not ICMP.
+Specifies types and codes if protocol is ICMP. Format is 'Type:Code'. Do not attempt to set if protocol is not ICMP.
 
 #####`direction`
 Sets the direction of the exception rule, either: 'In' or 'Out'. Defaults to 'In'.
