@@ -172,7 +172,7 @@ Specifies edge traversal options. Following options are valid:
 Loads and prepares all variables from current scope of [`windows_firewall::rule`] instance for HNetCfg consumption.
 
 #### [`template(windows_firewall\add_rule.ps1)`]
-Adds HNetCfg.Rule object prepared by [`template(windows_firewall\rule_object.ps1)`].
+Adds HNetCfg.FWRule object prepared by [`template(windows_firewall\rule_object.ps1)`].
 
 #### [`template(windows_firewall\set_rule.ps1)`]
 Sets rule property values prepared by [`template(windows_firewall\rule_object.ps1)`] on all matching rule names in HNetCfg.FwPolicy2.Rules. Only differing property values are updated.
