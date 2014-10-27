@@ -10,7 +10,7 @@
     * [Classes](#classes)
         * [windows_firewall](#windows_firewall)
     * [Defined Types](#defined-types)
-        * [windows_firewall::rule](#windows_firewall::rule)
+        * [windows_firewall::rule](#windows_firewall-rule)
 5. [Implementation - An under-the-hood peek at what this module is doing](#implementation)
     * [Templates](#templates)
 6. [Limitations - OS compatibility, etc.](#limitations)
