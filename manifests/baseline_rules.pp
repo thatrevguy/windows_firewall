@@ -519,7 +519,7 @@ class windows_firewall::baseline_rules {
         action => '1',
         edge_traversal_options => '0',
     }
-    windows_firewall::rule { 'Windows Remote Management (HTTP-In)':
+    windows_firewall::rule { 'Windows Remote Management LocalSubnet (HTTP-In)':
         description => 'Inbound rule for Windows Remote Management via WS-Management. [TCP 5985]',
         application_name => 'System',
         service_name => '',
