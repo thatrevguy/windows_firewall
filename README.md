@@ -90,20 +90,20 @@ Sets name for service rule applies to. Defaults to ''.
 #####`protocol`
 Sets the protocol to be included in rule. Following protocol names are valid:
 
-*'ICMPv4'
-*'IGMP'
-*'TCP' (Default)
-*'UDP'
-*'IPv6'
-*'IPv6Route'
-*'IPv6Frag'
-*'GRE'
-*'ICMPv6'
-*'IPv6NoNxt'
-*'IPv6Opts'
-*'VRRP'
-*'PGM'
-*'L2TP'
+* 'ICMPv4'
+* 'IGMP'
+* 'TCP' (Default)
+* 'UDP'
+* 'IPv6'
+* 'IPv6Route'
+* 'IPv6Frag'
+* 'GRE'
+* 'ICMPv6'
+* 'IPv6NoNxt'
+* 'IPv6Opts'
+* 'VRRP'
+* 'PGM'
+* 'L2TP'
 
 #####`local_ports`
 Defines local ports to be included in rule. Defaults to '*'.
@@ -131,10 +131,10 @@ Sets network interfaces rule applies to. Accepts a comma delimited list of netwo
 #####`interface_types`
 Sets interface types rule applies to. Following interface types are valid:
 
-*'Wireless'
-*'Lan'
-*'RemoteAccess'
-*'All' (Default)
+* 'Wireless'
+* 'Lan'
+* 'RemoteAccess'
+* 'All' (Default)
 
 Multiple types can be set by comma delimitation.
 
@@ -147,9 +147,9 @@ Defines the group name rule belongs to. Defaults to ''.
 #####`profiles`
 Sets profiles rule applies to. Following profile names are valid:
 
-*'Domain'  (Default)
-*'Private' (Default)
-*'Public'  (Default)
+* 'Domain'  (Default)
+* 'Private' (Default)
+* 'Public'  (Default)
 
 Multiple profiles can be set by comma delimitation.
 
@@ -162,10 +162,10 @@ Sets the action type of rule, either: 'Allow' or 'Block'. Defaults to 'Allow'.
 #####`edge_traversal_options`
 Specifies edge traversal options. Following options are valid:
 
-*'Block' (Default)
-*'Allow'
-*'Defer to App'
-*'Defer to User'
+* 'Block' (Default)
+* 'Allow'
+* 'Defer to App'
+* 'Defer to User'
 
 ##Reference
 
