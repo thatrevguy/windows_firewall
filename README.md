@@ -8,9 +8,9 @@
     * [Beginning with windows_firewall - Installation](#beginning-with-windows_firewall)
 4. [Usage - Classes, defined types, and their parameters available for configuration](#usage)
     * [Classes](#classes)
-        * [windows_firewall](#class-windows_firewall)
+        * [windows_firewall](#windows_firewall)
     * [Defined Types](#defined-types)
-        * [windows_firewall::rule](#defined-type-windows_firewall::rule)
+        * [windows_firewall::rule](#windows_firewall::rule)
 5. [Implementation - An under-the-hood peek at what this module is doing](#implementation)
     * [Templates](#templates)
 6. [Limitations - OS compatibility, etc.](#limitations)
@@ -193,6 +193,16 @@ Returns exit code 1 if no matching rule name from [`template(windows_firewall\ru
 
 #### [`template(windows_firewall\duplicate_rule.ps1)`]
 Returns exit code 1 if more than 1 matching rule name from [`template(windows_firewall\rule_object.ps1)`] are found in HNetCfg.FwPolicy2 rules.
+
+##Reference
+
+###Classes
+####Public Classes
+* [`windows_firewall`](#windows_firewall): Main class of module for managing state of windows firewall profiles and their policies.
+
+###Defined Types
+####Public Types:
+* [`windows_firewall::rule`](#windows_firewall::rule): Manages configuration of firewall rules.
 
 #Limitations
 Requires at least powershell v2 on clients.
