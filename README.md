@@ -10,7 +10,7 @@
 4. [Usage - Classes, defined types, and their parameters available for configuration](#usage)
     * [Classes and Defined Types](#classes-and-defined-types)
         * [Class: windows_firewall](#class-windows_firewall)
-        * [Defined Type: windows_firewall::rule](#defined-type-rule)
+        * [Defined Type: windows_firewall::rule](#defined-type-windows_firewall::rule)
 5. [Implementation - An under-the-hood peek at what this module is doing](#implementation)
     * [Templates](#templates)
 6. [Limitations - OS compatibility, etc.](#limitations)
@@ -70,7 +70,7 @@ Determines inbound policy for all profiles. If not included, module will assume 
 #####`out_policy`
 Determines outbound policy for all profiles. If not included, module will assume that inbound policy is AllowOutbound. Valid values are 'AllowOutbound' and 'BlockOutbound'.
 
-####Defined Type: `windows_firewall::rule`(#defined-type-rule)
+####Defined Type: `windows_firewall::rule`
 
 **Parameters within `windows_firewall::rule`:**
 
@@ -200,7 +200,7 @@ Returns exit code 1 if more than 1 matching rule name from [`template(windows_fi
 
 ###Defined Types
 ####Public Types:
-* [`windows_firewall::rule`](#defined-type-rule): Manages configuration of firewall rules.
+* [`windows_firewall::rule`](#defined-type-windows_firewall::rule): Manages configuration of firewall rules.
 
 #Limitations
 Requires at least powershell v2 on clients.
