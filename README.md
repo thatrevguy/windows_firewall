@@ -70,7 +70,7 @@ Determines inbound policy for all profiles. If not included, module will assume 
 #####`out_policy`
 Determines outbound policy for all profiles. If not included, module will assume that inbound policy is AllowOutbound. Valid values are 'AllowOutbound' and 'BlockOutbound'.
 
-####Defined Type: `windows_firewall::rule`
+####Defined Type: windows_fireall::rule
 
 **Parameters within `windows_firewall::rule`:**
 
