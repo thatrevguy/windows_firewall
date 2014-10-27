@@ -12,6 +12,7 @@ class windows_firewall (
                 in_policy => $in_policy,
                 out_policy => $out_policy,
             }
+            class { 'windows_firewall::baseline_rules': }
 
             $firewall_name = 'MpsSvc'
             service { 'windows_firewall':
