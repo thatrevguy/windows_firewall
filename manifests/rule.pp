@@ -43,7 +43,7 @@ define windows_firewall::rule(
         $onlyif = template('windows_firewall/get_rule.ps1')
     }
 
-    exec { "Rule not ${ensure}":
+    exec { "${display_name} not ${ensure}":
         command => template("${command}"),
         unless => $unless,
         onlyif => $onlyif,
@@ -52,13 +52,13 @@ define windows_firewall::rule(
 
     if $ensure == 'present' {
 
-        exec { "Rule property value mismatch found":
+        exec { "Property value mismatch found for ${display_name}":
             command => template('windows_firewall/set_rule.ps1'),
             unless => template('windows_firewall/validate_rule.ps1'),
             provider => powershell,
         }
 
-        exec { "Rule duplicate found":
+        exec { "Duplicate found for ${display_name}":
             command => template('windows_firewall/prune_rule.ps1'),
             unless => template('windows_firewall/duplicate_check.ps1'),
             provider => powershell,
