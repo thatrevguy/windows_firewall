@@ -12,7 +12,6 @@
         * [Class: windows_firewall](#class-windows_firewall)
         * [Defined Type: windows_firewall::rule](#defined-type-rule)
 5. [Implementation - An under-the-hood peek at what this module is doing](#implementation)
-    * [Classes and Defined Types](#classes-and-defined-types)
     * [Templates](#templates)
 6. [Limitations - OS compatibility, etc.](#limitations)
 7. [Release Notes - Notes on the most recent updates to the module](#release-notes)
@@ -164,6 +163,10 @@ Specifies edge traversal options. Following options are valid:
 * 'Allow'
 * 'Defer to App'
 * 'Defer to User'
+
+##Implementation
+
+###Templates
 
 ##Reference
 
