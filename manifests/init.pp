@@ -5,7 +5,7 @@ class windows_firewall (
 ){
     case $::operatingsystemversion {
         /(Windows Server 2008|Windows Server 2012)/: {
-            $firewall_name = 'MpsSvc
+            $firewall_name = 'MpsSvc'
 
             service { 'windows_firewall':
                 ensure => 'running',
