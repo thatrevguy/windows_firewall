@@ -1,1 +1,0 @@
-Write-Host "windows_firewall_rule="((New-Object -ComObject HNetCfg.FWPolicy2).Rules | where {$_.Direction -eq 1 -and $_.Enabled -eq 'True'} | Select-Object Name,LocalPorts,RemoteAddresses,Action | ConvertTo-Json -Compress)
