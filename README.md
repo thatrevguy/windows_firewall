@@ -203,7 +203,7 @@ Returns exit code 1 if more than 1 matching rule name from [`template(windows_fi
 * [`windows_firewall::rule`](#defined-types): Manages configuration of firewall rules.
 
 #Limitations
-Requires at least powershell v2 on clients.
+Requires at least powershell v3 on clients.
 
 This module is tested on the following platforms:
 
