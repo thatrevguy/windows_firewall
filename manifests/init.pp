@@ -22,7 +22,7 @@ class windows_firewall (
             class { 'windows_firewall::baseline_rules':
             }->
             exec { 'Disable all undefined rules':
-                command => template('windows_firewall\disable_rule.ps1'),
+                command => template('windows_firewall/disable_rule.ps1'),
                 provider => powershell,
             }
         }
