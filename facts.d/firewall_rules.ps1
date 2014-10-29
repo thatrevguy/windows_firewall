@@ -1,1 +1,1 @@
-Write-Host "firewall_rules="((New-Object -ComObject HNetCfg.FWPolicy2).Rules | where {$_.Direction -eq 1 -and $_.Enabled -eq 'True'} | Select-Object Name,LocalPorts,RemoteAddresses,Action | ConvertTo-Json -Compress)
+Write-Host "firewall_rules="((New-Object -ComObject HNetCfg.FWPolicy2).Rules | where {$_.Direction -eq 1 -and $_.Enabled -eq 'True'} | Select-Object Name,Protocol,LocalPorts,RemoteAddresses,Action | ConvertTo-Json -Compress)
