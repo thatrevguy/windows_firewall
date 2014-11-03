@@ -34,7 +34,7 @@ allow you to configure any rules that you need to have in place.
     | +-------------------------------------+ +-------------------------------------+ |
     | |                                     | |                                     | |
     | | +------------------+ N  +--------+  | | +------------------+ N  +--------+  | |
-    | | |Rule Name Present?+--> |  Done! |  | | |Rule Name Present?+--> |Add Rule|  | |
+    | | |Rule Name Present?+--->|  Done! |  | | |Rule Name Present?+--->|Add Rule|  | |
     | | +--------+---------+    +--------+  | | +--------+---------+    +--------+  | |
     | |          |                   ^      | |          |                          | |
     | |        Y |                   |      | |        Y |                          | |
