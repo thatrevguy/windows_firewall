@@ -22,6 +22,40 @@ This is a module that will manage the Microsoft Windows Firewall and its rules.
 The windows_firewall module will primarily manage the state of the windows firewall application on your windows system. Optionally it will also
 allow you to configure any rules that you need to have in place.
 
+###Rule Enforcement Process
+    +------------------+ N  +--------+ 
+    |Rule Name Present?+--> |Add Rule| 
+    +--------+---------+    +--------+ 
+            |                         
+          Y |                         
+            v                         
+    +--------+-----------------------+ 
+    |Do all matching rule names match| 
+    |definition property values?     | 
+    +--------+--------------+--------+ 
+            |              |          
+           Y|             N|          
+            v              v          
+    +--------+----+    +----+---------+
+    |Are matching |    |Set property  |
+    |rule names   |    |values for all|
+    |greater than | <--+matching rule |
+    |one?         |    |names.        |
+    +-+------+----+    +--------------+
+     |      |                         
+    N|     Y|                         
+     |      v                         
+     |  +----------------------------+
+     |  | De-duplicate matching rule |
+     |  | names.                     |
+     |  +---+------------------------+
+     |      |                         
+     |      |                         
+     v      v                         
+    +-+------+-+                       
+    |   Done!  |                       
+    +----------+
+
 ##Setup
 
 ###What windows_firewall affects:
