@@ -4,6 +4,7 @@
 
 1. [Overview - What is windows_firewall module?](#overview)
 2. [Module Description - What does this module do?](#module-description)
+    * [Rule Enforcement Process - What is it thinking?](#rule-enforcement-process)
 3. [Setup - Basics of getting started with windows_firewall](#setup)
     * [Beginning with windows_firewall - Installation](#beginning-with-windows_firewall)
 4. [Usage - Classes, defined types, and their parameters available for configuration](#usage)
