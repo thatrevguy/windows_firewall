@@ -192,6 +192,9 @@ Returns exit code 1 if no matching rule name from [`template(windows_firewall\ru
 #### [`template(windows_firewall\duplicate_rule.ps1)`]
 Returns exit code 1 if more than 1 matching rule name from [`template(windows_firewall\rule_object.ps1)`] are found in HNetCfg.FwPolicy2 rules.
 
+#### [`template(windows_firewall\disable_rule.ps1)`]
+Disables any firewall rule name that does not exist in Puppet catalog.
+
 ##Reference
 
 ###Classes
