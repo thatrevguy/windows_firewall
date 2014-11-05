@@ -72,12 +72,13 @@ $RuleProperties.Add("Profiles", $Profiles)
 $RuleProperties.Add("EdgeTraversal", $EdgeTraversal)
 $RuleProperties.Add("Action", $Action)
 $RuleProperties.Add("EdgeTraversalOptions", $EdgeTraversalOptions)
-$RuleProperties.Add("LocalAppPackageId", '')
-$RuleProperties.Add("LocalUserOwner", '')
-$RuleProperties.Add("LocalUserAuthorizedList", '')
-$RuleProperties.Add("RemoteUserAuthorizedList", '')
-$RuleProperties.Add("RemoteMachineAuthorizedList", '')
-$RuleProperties.Add("SecureFlags", 0)
+#Below lines are Server 2012 compatable only.
+#$RuleProperties.Add("LocalAppPackageId", '')
+#$RuleProperties.Add("LocalUserOwner", '')
+#$RuleProperties.Add("LocalUserAuthorizedList", '')
+#$RuleProperties.Add("RemoteUserAuthorizedList", '')
+#$RuleProperties.Add("RemoteMachineAuthorizedList", '')
+#$RuleProperties.Add("SecureFlags", 0)
 
 #Build rule object
 $Rule = New-Object -ComObject HNetCfg.FWRule
