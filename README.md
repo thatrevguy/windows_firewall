@@ -81,25 +81,25 @@ allow you to configure any rules that you need to have in place.
 ###Beginning with windows_firewall
 
 The windows_firewall resource allows you to manage the firewall profile state and their policy.
-
-    class { 'windows_firewall': 
-      profile_state => 'on',
-      in_policy     => 'BlockInbound',
-      out_policy    => 'AllowOutbound',
-    }
-
+```puppet
+class { 'windows_firewall': 
+    profile_state => 'on',
+    in_policy     => 'BlockInbound',
+    out_policy    => 'AllowOutbound',
+}
+```
 Once the windows firewall is managed you can start managing the rules and exceptions within it.
-
-    windows_firewall::rule { 'ICMPv4 Allow Echo':
-      ensure               => present,
-      direction            => 'In',
-      action               => 'Allow',
-      enabled              => 'True',
-      protocol             => 'ICMPv4',
-      description          => 'Inbound rule for ICMPv4 echo.',
-      icmp_types_and_codes => '8:*',
+```puppet
+windows_firewall::rule { 'ICMPv4 Allow Echo':
+    ensure               => present,
+    direction            => 'In',
+    action               => 'Allow',
+    enabled              => 'True',
+    protocol             => 'ICMPv4',
+    description          => 'Inbound rule for ICMPv4 echo.',
+    icmp_types_and_codes => '8:*',
     }
-
+````
 ##Usage
 
 ###Classes
