@@ -98,7 +98,7 @@ windows_firewall::rule { 'ICMPv4 Allow Echo':
     protocol             => 'ICMPv4',
     description          => 'Inbound rule for ICMPv4 echo.',
     icmp_types_and_codes => '8:*',
-    }
+}
 ````
 ##Usage
 
