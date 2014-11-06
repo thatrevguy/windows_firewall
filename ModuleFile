@@ -1,0 +1,8 @@
+name 'hathoward-windows_firewall'
+version '0.1-alpha'
+author 'rmsphd'
+license 'Apache License, Version 2.0'
+summary 'puppet windows firewall module'
+project_page 'https://github.com/hathoward/windows_firewall'
+dependency 'puppetlabs/stdlib', '>=3.7.2 <4.0.0'
+dependency 'joshcooper/powershell', '0.0.4'
