@@ -8,7 +8,27 @@
   "project_page": "https://github.com/hathoward/windows_firewall",
   "issues_url": "https://github.com/hathoward/windows_firewall/issues",
   "dependencies": [
-    {"name":"puppetlabs/stdlib","version_requirement":">=3.7.2 <4.0.0"},
-    {"name":"joshcooper/powershell","version_requirement":"0.0.4"}
-  ]
+    {"name":"puppetlabs/stdlib","version_requirement":"4.3.2"},
+    {"name":"joshcooper/powershell","version_requirement":"0.0.6"}
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Windows",
+      "operatingsystemrelease": [
+        "Server 2008",
+        "Server 2008 R2",
+        "Server 2012",
+        "Server 2012 R2",
+        "7",
+        "8"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">=3.7.2 <4.0.0"
+    }
+  ],
+  "description": "Module for managing windows firewall."  
 }
