@@ -9,7 +9,8 @@
   "issues_url": "https://github.com/hathoward/windows_firewall/issues",
   "dependencies": [
     {"name":"puppetlabs/stdlib","version_requirement":"4.3.2"},
-    {"name":"joshcooper/powershell","version_requirement":"0.0.6"}
+    {"name":"joshcooper/powershell","version_requirement":"0.0.6"},
+    {"name":"liamjbennett/win_facts","version_requirement":"0.0.2"}
   ],
   "operatingsystem_support": [
     {
