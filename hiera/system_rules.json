@@ -47,7 +47,7 @@
     },
     "System Center 2012 R2 Configuration Manager": {
       "description": "Created by System Center 2012 R2 Configuration Manager for the remote control service",
-      "application_name": "C:\Windows\CCM\RemCtrl\CmRcService.exe",
+      "application_name": "C:\\Windows\\CCM\\RemCtrl\\CmRcService.exe",
       "protocol": 6,
       "local_ports": "2701",
       "remote_ports": "*",
@@ -114,7 +114,7 @@
     },
     "Core Networking - Dynamic Host Configuration Protocol for IPv6(DHCPV6-In)": {
       "description": "Allows DHCPV6 (Dynamic Host Configuration Protocol for IPv6) messages for stateful and stateless configuration.",
-      "application_name": "C:\Windows\system32\svchost.exe",
+      "application_name": "C:\\Windows\\system32\\svchost.exe",
       "service_name": "dhcp",
       "protocol": 17,
       "local_ports": "546",
@@ -148,7 +148,7 @@
     },
     "Core Networking - Dynamic Host Configuration Protocol (DHCP-In)": {
       "description": "Allows DHCP (Dynamic Host Configuration Protocol) messages for stateful auto-configuration.",
-      "application_name": "C:\Windows\system32\svchost.exe",
+      "application_name": "C:\\Windows\\system32\\svchost.exe",
       "service_name": "dhcp",
       "protocol": 17,
       "local_ports": "68",
@@ -181,7 +181,7 @@
     },
     "SNMP Service (UDP In)": {
       "description": "Inbound rule for the Simple Network Management Protocol (SNMP) Service to allow SNMP traffic. [UDP 161]",
-      "application_name": "C:\Windows\system32\snmp.exe",
+      "application_name": "C:\\Windows\\system32\\snmp.exe",
       "service_name": "SNMP",
       "protocol": 17,
       "local_ports": "161",
@@ -263,7 +263,7 @@
     },
     "Remote Desktop - User Mode (TCP-In)": {
       "description": "Inbound rule for the Remote Desktop service to allow RDP traffic. [TCP 3389]",
-      "application_name": "C:\Windows\system32\svchost.exe",
+      "application_name": "C:\\Windows\\system32\\svchost.exe",
       "service_name": "termservice",
       "protocol": 6,
       "local_ports": "3389",
@@ -379,7 +379,7 @@
     },
     "Core Networking - Teredo (UDP-In)": {
       "description": "Inbound UDP rule to allow Teredo edge traversal, a technology that provides address assignment and automatic tunneling for unicast IPv6 traffic when an IPv6/IPv4 host is located behind an IPv4 network address translator.",
-      "application_name": "C:\Windows\system32\svchost.exe",
+      "application_name": "C:\\Windows\\system32\\svchost.exe",
       "service_name": "iphlpsvc",
       "protocol": 17,
       "local_ports": "Teredo",
@@ -397,7 +397,7 @@
     },
     "SNMP Service LocalSubnet (UDP In)": {
       "description": "Inbound rule for the Simple Network Management Protocol (SNMP) Service to allow SNMP traffic. [UDP 161]",
-      "application_name": "C:\Windows\system32\snmp.exe",
+      "application_name": "C:\\Windows\\system32\\snmp.exe",
       "service_name": "SNMP",
       "protocol": 17,
       "local_ports": "161",
@@ -431,7 +431,7 @@
     },
     "Remote Desktop - Shadow (TCP-In)": {
       "description": "Inbound rule for the Remote Desktop service to allow shadowing of an existing Remote Desktop session. (TCP-In)",
-      "application_name": "C:\Windows\system32\RdpSa.exe",
+      "application_name": "C:\\Windows\\system32\\RdpSa.exe",
       "protocol": 6,
       "local_ports": "*",
       "remote_ports": "*",
@@ -448,7 +448,7 @@
     },
     "Remote Desktop - User Mode (UDP-In)": {
       "description": "Inbound rule for the Remote Desktop service to allow RDP traffic. [UDP 3389]",
-      "application_name": "C:\Windows\system32\svchost.exe",
+      "application_name": "C:\\Windows\\system32\\svchost.exe",
       "service_name": "termservice",
       "protocol": 17,
       "local_ports": "3389",
