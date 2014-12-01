@@ -3,7 +3,7 @@ $PuppetRules = @()
 
 #Apply rules
 <% @networks.sort.each do |key, network| -%>
-    <%- if network['ensure'] == "present" -%>
+    <%- if network['ensure'] != "absent" -%>
         $Rule = Build-PuppetFirewallRule `
             <%- if network['description'] -%>-Description '<%= network['description'] %>' `<%- end -%>
 			<%- if network['application_name'] -%>-ApplicationName '<%= network['application_name'] %>' `<%- end -%>

@@ -204,7 +204,7 @@ function Ensure-PuppetFirewallRuleAbsent {
         $Firewall = New-Object -ComObject HNetCfg.FwPolicy2
         for($i = 1; $i -le $SystemRule.Count; $i++)
         {
-            $Firewall.Rules.Remove($Rule.Name)
+            $Firewall.Rules.Remove($RuleName)
         }
     }
 }
