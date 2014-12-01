@@ -10,7 +10,12 @@ $PuppetRules = @()
         Ensure-PuppetFirewallRulePresent -Rule $Rule
         $PuppetRules += '<%= key %>'
 	<%- else -%>
-        Ensure-PuppetFirewallRuleAbsent -RuleName '<%= key %>'
+        #Ensure-PuppetFirewallRuleAbsent -RuleName '<%= key %>'
+        $Rule = Build-PuppetFirewallRule `
+            <%- if network['description'] -%>-Description '<%= network['description'] %>' `<%- end -%>
+            -Name '<%= key %>'
+        Ensure-PuppetFirewallRulePresent -Rule $Rule
+        $PuppetRules += '<%= key %>'
 	<%- end -%>
 <% end -%>
 
