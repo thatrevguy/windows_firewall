@@ -31,7 +31,7 @@ class windows_firewall (
             exec { 'Apply rules':
                 command => template('windows_firewall/apply_rules.ps1'),
                 provider => powershell,				
-            }
+            }->
             class { 'windows_firewall::baseline_rules':
             }
         }
