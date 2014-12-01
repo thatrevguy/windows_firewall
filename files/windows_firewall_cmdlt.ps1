@@ -209,11 +209,14 @@ function Ensure-PuppetFirewallRuleAbsent {
     }
 }
 
-function Disable-PuppetFirewallRule
+function Disable-SystemFirewallRule
 {
-    $CatalogPath = "$env:ProgramData\PuppetLabs\puppet\var\client_data\catalog"
+    param
+    (
+        [String[]]$PuppetRules
+    )
+
     $Firewall = New-Object -ComObject HNetCfg.FwPolicy2
-    $CatalogRules = ((Get-Content -Path $CatalogPath\*.json | ConvertFrom-Json).Data.Resources | Where {$_.Type -eq "Windows_firewall::Rule"}).Title
     $SystemRules = ($Firewall.rules | where {$_.Direction -eq 1 -and $_.Enabled -eq "True"}).Name
     $RogueRules = (Compare-Object -ReferenceObject $CatalogRules -DifferenceObject $SystemRules).InputObject
     if($RogueRules)

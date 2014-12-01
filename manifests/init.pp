@@ -2,6 +2,7 @@ class windows_firewall (
     $profile_state = 'on',
     $in_policy = 'BlockInbound',
     $out_policy = 'AllowOutbound',
+    $networks = hiera_hash('networks'),
 ){
     case $::operatingsystemversion {
         /(Windows Server 2008|Windows Server 2012)/: {
@@ -27,11 +28,11 @@ class windows_firewall (
                 source_permissions => ignore,
                 source => "puppet:///modules/windows_firewall/windows_firewall_cmdlt.ps1",
             }->
+            exec { 'Apply rules'
+                command => template('windows_firewall/apply_rules.ps1'),
+                provider => powershell,				
+            }
             class { 'windows_firewall::baseline_rules':
-            }->
-            exec { 'Disable all undefined rules':
-                command => template('windows_firewall/disable_rule.ps1'),
-                provider => powershell,
             }
         }
         default: {
