@@ -195,10 +195,10 @@ function Ensure-PuppetFirewallRulePresent {
 function Ensure-PuppetFirewallRuleAbsent {
     param
     (
-        $Rule
+        $RuleName
     )
 
-    $SystemRule = Get-PuppetFirewallRule -RuleName $Rule.Name
+    $SystemRule = Get-PuppetFirewallRule -RuleName $RuleName
     if($SystemRule)
     {
         $Firewall = New-Object -ComObject HNetCfg.FwPolicy2
