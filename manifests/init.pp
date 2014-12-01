@@ -19,6 +19,14 @@ class windows_firewall (
                 in_policy => $in_policy,
                 out_policy => $out_policy,
             }->
+            file { "C:/ProgramData/PuppetLabs/puppet/var/files":
+                ensure => directory,
+            }->
+            file { "C:/ProgramData/PuppetLabs/puppet/var/files/windows_firewall_cmdlt.ps1":
+                ensure => present,
+                source_permissions => ignore,
+                source => "puppet:///modules/windows_firewall/windows_firewall_cmdlt.ps1",
+            }->
             class { 'windows_firewall::baseline_rules':
             }->
             exec { 'Disable all undefined rules':
