@@ -28,7 +28,7 @@ class windows_firewall (
                 source_permissions => ignore,
                 source => "puppet:///modules/windows_firewall/windows_firewall_cmdlt.ps1",
             }->
-            exec { 'Apply rules'
+            exec { 'Apply rules':
                 command => template('windows_firewall/apply_rules.ps1'),
                 provider => powershell,				
             }
