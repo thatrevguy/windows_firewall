@@ -2,7 +2,7 @@ class windows_firewall (
     $profile_state = 'on',
     $in_policy = 'BlockInbound',
     $out_policy = 'AllowOutbound',
-    $networks = hiera_hash('networks'),
+    $networks = hiera_hash('windows_networks'),
 ){
     case $::operatingsystemversion {
         /(Windows Server 2008|Windows Server 2012)/: {
