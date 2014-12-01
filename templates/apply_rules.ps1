@@ -4,10 +4,10 @@ $PuppetRules = @()
 #Apply rules
 <% @networks.sort.each do |key, network| -%>
     <%- if network['ensure'] == "present" -%>
-        Ensure-PuppetFirewallRulePresent -Rule (Build-PuppetFirewallRule -Name '<%= network %>')
-        $PuppetRules += '<%= network %>'
+        Ensure-PuppetFirewallRulePresent -Rule (Build-PuppetFirewallRule -Name '<%= key %>')
+        $PuppetRules += '<%= key %>'
 	<%- else -%>
-        Ensure-PuppetFirewallRuleAbsent -Rule (Build-PuppetFirewallRule -Name '<%= network %>')
+        Ensure-PuppetFirewallRuleAbsent -Rule (Build-PuppetFirewallRule -Name '<%= key %>')
 	<%- end -%>
 <% end -%>
 
