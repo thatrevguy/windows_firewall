@@ -37,7 +37,7 @@ function Build-PuppetFirewallRule {
     
     #Convert direction string to int
     $DirectionHash = @{"In"=1;"Out"=2}
-    if($DirectionHash.Get_Item($Direction)){$Direction = $DirectionHash}
+    if($DirectionHash.Get_Item($Direction)){$Direction = $DirectionHash.Get_Item($Direction)}
     
     #Convert interfaces string to array or null
     #Will only accept a good ole' fashioned array.
