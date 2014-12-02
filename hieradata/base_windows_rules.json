@@ -30,21 +30,6 @@
       "action": 1,
       "edge_traversal_options": 0
     },
-    "Awesome Rule": {
-      "description": "It is AWESOME!",
-      "protocol": 6,
-      "local_ports": "80,443",
-      "remote_ports": "80,443",
-      "local_addresses": "10.1.2.3/255.255.255.255,10.4.5.6/255.255.255.255",
-      "remote_addresses": "10.1.2.3/255.255.255.255,10.4.5.6/255.255.255.255",
-      "direction": 1,
-      "interface_types": "All",
-      "enabled": true,
-      "profiles": 2147483647,
-      "edge_traversal": false,
-      "action": 1,
-      "edge_traversal_options": 0
-    },
     "System Center 2012 R2 Configuration Manager": {
       "description": "Created by System Center 2012 R2 Configuration Manager for the remote control service",
       "application_name": "C:\\Windows\\CCM\\RemCtrl\\CmRcService.exe",
