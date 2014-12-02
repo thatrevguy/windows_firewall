@@ -169,7 +169,8 @@ function Prune-PuppetFirewallRule
 function Ensure-PuppetFirewallRulePresent {
     param
     (
-        $Rule
+        $Rule,
+        [switch]$PuppetValidation
     )
 	
 	$SystemRule = Get-PuppetFirewallRule -RuleName $Rule.Name
@@ -177,6 +178,7 @@ function Ensure-PuppetFirewallRulePresent {
     {
         if(!(Validate-PuppetFirewallRule -Rule $Rule -SystemRule $SystemRule))
         {
+            if($PuppetValidation){ exit 1 }
 			Set-PuppetFirewallRule -Rule $Rule -SystemRule $SystemRule
         }
 		

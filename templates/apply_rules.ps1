@@ -1,7 +1,7 @@
 Import-Module "C:\ProgramData\PuppetLabs\puppet\var\files\windows_firewall_cmdlt.ps1"
-$PuppetRules = @()
-
-#Apply rules
+$PresentPuppetRules = @()
+$AbsentPuppetRules = @()
+#Generate Rule Arrays
 <% @networks.sort.each do |key, network| -%>
     <%- if network['ensure'] != "absent" -%>
         $Rule = Build-PuppetFirewallRule `
@@ -24,12 +24,16 @@ $PuppetRules = @()
             <% if network['action'] -%>-Action '<%= network['action'] %>' `<%- end %>
             <% if network['edge_traversal_options'] -%>-EdgeTraversalOptions '<%= network['edge_traversal_options'] %>' `<%- end %>
             -Name '<%= key %>'
-        Ensure-PuppetFirewallRulePresent -Rule $Rule
-        $PuppetRules += '<%= key %>'
+        $PresentPuppetRules += $Rule
     <%- else -%>
-        Ensure-PuppetFirewallRuleAbsent -RuleName '<%= key %>'
+        $AbsentPuppetRules += '<%= key %>'
     <%- end -%>
 <% end -%>
-
+#Send exit code 1 if no diffs found
+$PresentPuppetRules | foreach {Ensure-PuppetFirewallRulePresent -Rule $_ -PuppetValidation}
+#Add rules
+$PresentPuppetRules | foreach {Ensure-PuppetFirewallRulePresent -Rule $_}
+#Remove rules
+$AbsentPuppetRules | foreach {Ensure-PuppetFirewallRuleAbsent -RuleName $_}
 #Disable system rules not in puppet
-if($PuppetRules){Disable-SystemFirewallRule -PuppetRules $PuppetRules}
+if($PresentPuppetRules){Disable-SystemFirewallRule -PuppetRules $PresentPuppetRules.Name}
