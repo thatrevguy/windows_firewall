@@ -75,8 +75,8 @@ allow you to configure any rules that you need to have in place.
 
 ###What windows_firewall affects:
 
-* windows firewall service and corresponding Windows Registry keys
-* windows registry keys and values for any defined rules
+* windows firewall profile and policy.
+* windows firewall rules.
 
 ###Beginning with windows_firewall
 
@@ -88,18 +88,27 @@ class { 'windows_firewall':
     out_policy    => 'AllowOutbound',
 }
 ```
-Once the windows firewall is managed you can start managing the rules and exceptions within it.
+Windows_firewall will by default load rules from hiera stored as hashes under "windows_networks" variable.
 ```puppet
-windows_firewall::rule { 'ICMPv4 Allow Echo':
-    ensure               => present,
-    direction            => 'In',
-    action               => 'Allow',
-    enabled              => 'True',
-    protocol             => 'ICMPv4',
-    description          => 'Inbound rule for ICMPv4 echo.',
-    icmp_types_and_codes => '8:*',
+$networks = hiera_hash('windows_networks')
+```
+Rules can be defined using json or yaml data resource. Below is a json example:
+```json
+{
+  "windows_networks": {
+    "Rule 1": {
+      "description": "This is rule 1.",
+      "remote_addresses": "10.1.2.3",
+      "local_ports": "1000"
+    },
+    "Rule 2": {
+      "description": "This is rule 2.",
+      "remote_addresses": "10.4.5.6",
+      "local_ports": "2000"
+    }
+  }
 }
-````
+```
 ##Usage
 
 ###Classes
@@ -117,14 +126,15 @@ Determines inbound policy for all profiles. If not included, module will assume 
 #####`out_policy`
 Determines outbound policy for all profiles. If not included, module will assume that inbound policy is AllowOutbound. Valid values are 'AllowOutbound' and 'BlockOutbound'.
 
-###Defined Types
+#####`networks`
+Determines what variable name is used to load firewall rules from hiera.
 
-####`windows_firewall::rule`
+###Rule Parameters
 
-**Parameters within `windows_firewall::rule`:**
+**Available parameters for rule definition:**
 
 #####`ensure`
-Determines whether or not the firewall exception is 'present' or 'absent'. Defaults to 'Present'.
+Determines whether or not the firewall exception is 'present' or 'absent'. Defaults to 'present'.
 
 #####`description`
 A description of the rule. Defaults to ''.
@@ -217,32 +227,14 @@ Specifies edge traversal options. Following options are valid:
 
 ###Templates
 
-#### [`template(windows_firewall\rule_object.ps1)`]
-Loads and prepares all variables from current scope of [`windows_firewall::rule`] instance for consumption by HNetCfg.FwPolicy2 ComObject.
+#### [`template(windows_firewall\apply_rules.ps1)`]
+Loops over hash loaded from hiera and executes cmdlets provided by windows_firewall_cmdlt.ps1 file.
 
-#### [`template(windows_firewall\add_rule.ps1)`]
-Adds HNetCfg.FWRule object prepared by [`template(windows_firewall\rule_object.ps1)`].
+###Files
 
-#### [`template(windows_firewall\set_rule.ps1)`]
-Sets rule property values prepared by [`template(windows_firewall\rule_object.ps1)`] on all matching rule names in HNetCfg.FwPolicy2 rules. Only differing property values are updated.
+#### [`puppet:///modules/windows_firewall/windows_firewall_cmdlt.ps1`]
 
-#### [`template(windows_firewall\remove_rule.ps1)`]
-Removes all rules with matching name property from [`template(windows_firewall\rule_object.ps1)`] in HNetCfg.FwPolicy2 rules.
-
-#### [`template(windows_firewall\validate_rule.ps1)`]
-Returns exit code 1 if rule property values prepared by [`template(windows_firewall\rule_object.ps1)`] mismatch any rule properties with the name in HNetCfg.FwPolicy2 rules.
-
-#### [`template(windows_firewall\prune_rule.ps1)`]
-Removes all rules with matching name property from [`template(windows_firewall\rule_object.ps1)`] in HNetCfg.FwPolicy2 rules except for last instance.
-
-#### [`template(windows_firewall\get_rule.ps1)`]
-Returns exit code 1 if no matching rule name from [`template(windows_firewall\rule_object.ps1)`] are found in HNetCfg.FwPolicy2 rules.
-
-#### [`template(windows_firewall\duplicate_rule.ps1)`]
-Returns exit code 1 if more than 1 matching rule name from [`template(windows_firewall\rule_object.ps1)`] are found in HNetCfg.FwPolicy2 rules.
-
-#### [`template(windows_firewall\disable_rule.ps1)`]
-Disables any firewall rule name that does not exist in Puppet catalog.
+Contains all cmdlts for operating with windows firewall rules.
 
 ##Reference
 
