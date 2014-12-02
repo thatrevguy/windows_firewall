@@ -9,7 +9,7 @@
     * [Beginning with windows_firewall - Installation](#beginning-with-windows_firewall)
 4. [Usage - Classes, defined types, and their parameters available for configuration](#usage)
     * [Classes](#classes)
-    * [Defined Types](#defined-types)
+    * [Rule Parameters](#rule-parameters)
 5. [Implementation - An under-the-hood peek at what this module is doing](#implementation)
     * [Templates](#templates)
 6. [Limitations - OS compatibility, etc.](#limitations)
@@ -241,10 +241,6 @@ Contains all cmdlts for operating with windows firewall rules.
 ###Classes
 ####Public Classes
 * [`windows_firewall`](#classes): Main class of module for managing state of windows firewall profiles and their policies.
-
-###Defined Types
-####Public Types:
-* [`windows_firewall::rule`](#defined-types): Manages configuration of firewall rules.
 
 #Limitations
 Requires at least powershell v3 on clients.
