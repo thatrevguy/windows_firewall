@@ -180,9 +180,9 @@ function Ensure-PuppetFirewallRulePresent {
 			Set-PuppetFirewallRule -Rule $Rule -SystemRule $SystemRule
         }
 		
-        if($SystemRule.Count -gt 1)
+        if($SystemRule.Name.Count -gt 1)
         {
-            Prune-PuppetFirewallRule -RuleName $Rule.Name -RuleCount $SystemRule.Count
+            Prune-PuppetFirewallRule -RuleName $Rule.Name -RuleCount $SystemRule.Name.Count
         }
     }
     else
@@ -202,7 +202,7 @@ function Ensure-PuppetFirewallRuleAbsent {
     if($SystemRule)
     {
         $Firewall = New-Object -ComObject HNetCfg.FwPolicy2
-        for($i = 1; $i -le $SystemRule.Count; $i++)
+        for($i = 1; $i -le $SystemRule.Name.Count; $i++)
         {
             $Firewall.Rules.Remove($RuleName)
         }
