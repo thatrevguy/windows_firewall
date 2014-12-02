@@ -218,7 +218,7 @@ function Disable-SystemFirewallRule
 
     $Firewall = New-Object -ComObject HNetCfg.FwPolicy2
     $SystemRules = ($Firewall.rules | where {$_.Direction -eq 1 -and $_.Enabled -eq "True"}).Name
-    $RogueRules = (Compare-Object -ReferenceObject $CatalogRules -DifferenceObject $SystemRules).InputObject
+    $RogueRules = (Compare-Object -ReferenceObject $PuppetRules -DifferenceObject $SystemRules).InputObject
     if($RogueRules)
     {
         foreach($RogueRule in $RogueRules)
