@@ -178,7 +178,7 @@ function Ensure-PuppetFirewallRulePresent {
     {
         if(!(Validate-PuppetFirewallRule -Rule $Rule -SystemRule $SystemRule))
         {
-            if($PuppetValidation){ exit 1 }
+            if($PuppetValidation){ return $false }
 			Set-PuppetFirewallRule -Rule $Rule -SystemRule $SystemRule
         }
 		
@@ -189,7 +189,7 @@ function Ensure-PuppetFirewallRulePresent {
     }
     else
     {
-        if($PuppetValidation){ exit 1 }
+        if($PuppetValidation){ return $false }
         $Firewall = New-Object -ComObject HNetCfg.FwPolicy2
         $Firewall.Rules.Add($Rule)
     }
