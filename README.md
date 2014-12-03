@@ -98,13 +98,18 @@ Rules can be defined using json or yaml data resource. Below is a json example:
   "windows_networks": {
     "Rule 1": {
       "description": "This is rule 1.",
-      "remote_addresses": "10.1.2.3",
-      "local_ports": "1000"
+      "remote_addresses": "10.1.2.3,10.7.8.9",
+      "local_ports": "1000,1010"
     },
     "Rule 2": {
       "description": "This is rule 2.",
-      "remote_addresses": "10.4.5.6",
-      "local_ports": "2000"
+      "remote_addresses": "10.4.5.6-10.4.5.150",
+      "local_ports": "2000-2500"
+    },
+    "Rule 3": {
+      "description": "This is rule 1.",
+      "remote_addresses": "10.1.100.1/24",
+      "local_ports": "3030"
     }
   }
 }
