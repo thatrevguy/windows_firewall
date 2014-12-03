@@ -107,7 +107,7 @@ Rules can be defined using json or yaml data resource. Below is a json example:
       "local_ports": "2000-2500"
     },
     "Rule 3": {
-      "description": "This is rule 1.",
+      "description": "This is rule 3.",
       "remote_addresses": "10.1.100.1/24",
       "local_ports": "3030"
     }
