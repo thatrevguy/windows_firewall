@@ -178,7 +178,7 @@ function Ensure-PuppetFirewallRulePresent {
     {
         if(!(Validate-PuppetFirewallRule -Rule $Rule -SystemRule $SystemRule))
         {
-            if($PuppetValidation){ return $false }
+            if($PuppetValidation){ exit 1 }
 			Set-PuppetFirewallRule -Rule $Rule -SystemRule $SystemRule
         }
 		
@@ -189,7 +189,7 @@ function Ensure-PuppetFirewallRulePresent {
     }
     else
     {
-        if($PuppetValidation){ return $false }
+        if($PuppetValidation){ exit 1 }
         $Firewall = New-Object -ComObject HNetCfg.FwPolicy2
         $Firewall.Rules.Add($Rule)
     }
@@ -198,12 +198,14 @@ function Ensure-PuppetFirewallRulePresent {
 function Ensure-PuppetFirewallRuleAbsent {
     param
     (
-        $RuleName
+        $RuleName,
+        [switch]$PuppetValidation
     )
 
     $SystemRule = Get-PuppetFirewallRule -RuleName $RuleName
     if($SystemRule)
     {
+        if($PuppetValidation){ exit 1 }
         $Firewall = New-Object -ComObject HNetCfg.FwPolicy2
         for($i = 1; $i -le $SystemRule.Name.Count; $i++)
         {
@@ -216,7 +218,8 @@ function Disable-SystemFirewallRule
 {
     param
     (
-        [String[]]$PuppetRules
+        [String[]]$PuppetRules,
+		[switch]$PuppetValidation
     )
 
     $Firewall = New-Object -ComObject HNetCfg.FwPolicy2
@@ -224,6 +227,7 @@ function Disable-SystemFirewallRule
     $RogueRules = (Compare-Object -ReferenceObject $PuppetRules -DifferenceObject $SystemRules).InputObject
     if($RogueRules)
     {
+        if($PuppetValidation){ exit 1 }
         foreach($RogueRule in $RogueRules)
         {
             $Firewall.Rules | where {$_.Name -eq $RogueRule} | foreach {$_.Enabled = $false}
