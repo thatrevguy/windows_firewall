@@ -232,8 +232,17 @@ Specifies edge traversal options. Following options are valid:
 
 ###Templates
 
+#### [`template(windows_firewall\generate_rules.ps1)`]
+Loops over hash loaded from hiera and executes cmdlets provided by windows_firewall_cmdlt.ps1 to create rule objects array.
+
+#### [`template(windows_firewall\validate_rules.ps1)`]
+Loops over generated rule object array and throw exit code 1 if these conditions exist:
+* 'System defined rules that should be disabled.'
+* 'Puppet defined rules that due not match their system rule counterpart or do exist.'
+* 'Puppet defined rules that are set as absent but still exist on system.'
+
 #### [`template(windows_firewall\apply_rules.ps1)`]
-Loops over hash loaded from hiera and executes cmdlets provided by windows_firewall_cmdlt.ps1 file.
+If validate_rules.ps1 throws an exit code 1 this template is ran to apply changes based on rule object array generated.
 
 ###Files
 
