@@ -30,7 +30,7 @@ $AbsentPuppetRules = @()
     <%- end -%>
 <% end -%>
 #Send exit code 1 if no diffs found
-$PresentPuppetRules | foreach {if(Ensure-PuppetFirewallRulePresent -Rule $_ -PuppetValidation){ exit 1 }}
+$PresentPuppetRules | foreach {if(!(Ensure-PuppetFirewallRulePresent -Rule $_ -PuppetValidation)){ exit 1 }}
 #Add rules
 $PresentPuppetRules | foreach {Ensure-PuppetFirewallRulePresent -Rule $_}
 #Remove rules
