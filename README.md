@@ -134,6 +134,10 @@ Determines outbound policy for all profiles. If not included, module will assume
 #####`networks`
 Determines what variable name is used to load firewall rules from hiera.
 
+#####`postrun_facts`
+Determines whether or not to run "puppet facts upload" if a configuration change occurs.
+Valid values are 'true' and 'false'.
+
 ###Rule Parameters
 
 **Available parameters for rule definition:**
@@ -256,7 +260,7 @@ Contains all cmdlts for operating with windows firewall rules.
 ####Public Classes
 * [`windows_firewall`](#classes): Main class of module for managing state of windows firewall profiles and their policies.
 
-#Limitations
+##Limitations
 Requires at least powershell v3 on clients.
 
 This module is tested on the following platforms:
@@ -266,5 +270,9 @@ This module is tested on the following platforms:
 * Windows Server 2008 R2
 * Windows Server 2008
 
-#Release-Notes
-Still working on auditing/reporting aspect for module.
+##Development
+Submit issues or pull requests to [GitHub](https://github.com/hathoward/windows_firewall)
+
+##Release-Notes
+* 0.0.8 option to update facts post configuration added
+* 0.0.4 switch over to hiera to store rules
