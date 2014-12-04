@@ -32,8 +32,10 @@ class windows_firewall (
             exec { 'apply_rules':
                 command => template('windows_firewall/apply_rules.ps1'),
                 unless => template('windows_firewall/validate_rules.ps1'),
-                provider => powershell,				
-            }~>
+				notify => exec["update_facts"],
+                provider => powershell,						
+            }
+			
 			if $postrun_facts == true {
                 exec { 'update_facts':
                     command => "\"${::env_windows_installdir}\\bin\\puppet.bat\" facts upload",
