@@ -32,7 +32,7 @@ class windows_firewall (
             exec { 'apply_rules':
                 command => template('windows_firewall/apply_rules.ps1'),
                 unless => template('windows_firewall/validate_rules.ps1'),
-				notify => exec["update_facts"],
+                notify => Exec["update_facts"],
                 provider => powershell,						
             }
 			
