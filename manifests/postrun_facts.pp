@@ -1,6 +1,7 @@
 class windows_firewall::postrun_facts (
+    $enabled = false,
 ){
-    if $::postrun_facts == true {
+    if $enabled == true {
         exec { 'update_facts':
             command => "\"${::env_windows_installdir}\\bin\\puppet.bat\" facts upload",
             provider => windows,

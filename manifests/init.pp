@@ -34,7 +34,9 @@ class windows_firewall (
                 unless => template('windows_firewall/validate_rules.ps1'),
                 provider => powershell,						
             }~>
-            class { 'windows_firewall::postrun_facts': }
+            class { 'windows_firewall::postrun_facts':
+                enabled => $postrun_facts,
+            }
         }
         default: {
             notify {"${::operatingsystemversion} not supported": }
