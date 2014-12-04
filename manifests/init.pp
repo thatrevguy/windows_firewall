@@ -3,7 +3,7 @@ class windows_firewall (
     $in_policy = 'BlockInbound',
     $out_policy = 'AllowOutbound',
     $networks = hiera_hash('windows_networks'),
-	$postrun_facts = false,
+    $postrun_facts = false,
 ){
     case $::operatingsystemversion {
         /(Windows Server 2008|Windows Server 2012)/: {
@@ -34,9 +34,7 @@ class windows_firewall (
                 unless => template('windows_firewall/validate_rules.ps1'),
                 provider => powershell,						
             }~>
-            class { 'windows_firewall::postrun_facts':
-                enabled => $postrun_facts,
-            }
+            class { 'windows_firewall::postrun_facts': }
         }
         default: {
             notify {"${::operatingsystemversion} not supported": }
