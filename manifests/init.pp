@@ -3,6 +3,7 @@ class windows_firewall (
     $in_policy = 'BlockInbound',
     $out_policy = 'AllowOutbound',
     $networks = hiera_hash('windows_networks'),
+	$postrun_facts = false,
 ){
     case $::operatingsystemversion {
         /(Windows Server 2008|Windows Server 2012)/: {
@@ -32,6 +33,13 @@ class windows_firewall (
                 command => template('windows_firewall/apply_rules.ps1'),
                 unless => template('windows_firewall/validate_rules.ps1'),
                 provider => powershell,				
+            }~>
+			if $postrun_facts == true {
+                exec { 'update_facts':
+                    command => "\"${::env_windows_installdir}\\bin\\puppet.bat\" facts upload",
+                    provider => windows,
+                    refreshonly => true,
+                }
             }
         }
         default: {
