@@ -2,7 +2,8 @@ class windows_firewall (
     $profile_state = 'on',
     $in_policy = 'BlockInbound',
     $out_policy = 'AllowOutbound',
-    $networks = hiera_hash('windows_networks'),
+	$control_rules = false,
+    $rule_key = 'windows_networks',
     $postrun_facts = false,
 ){
     case $::operatingsystemversion {
@@ -29,13 +30,9 @@ class windows_firewall (
                 source_permissions => ignore,
                 source => "puppet:///modules/windows_firewall/windows_firewall_cmdlt.ps1",
             }->
-            exec { 'apply_rules':
-                command => template('windows_firewall/apply_rules.ps1'),
-                unless => template('windows_firewall/validate_rules.ps1'),
-                provider => powershell,						
-            }~>
-            class { 'windows_firewall::postrun_facts':
-                enabled => $postrun_facts,
+            class { 'windows_firewall::rule_controller':
+                enabled => $control_rules,
+                rule_key => $rule_key,
             }
         }
         default: {

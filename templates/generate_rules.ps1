@@ -2,7 +2,7 @@ Import-Module "C:\ProgramData\PuppetLabs\puppet\var\files\windows_firewall_cmdlt
 $PresentPuppetRules = @()
 $AbsentPuppetRules = @()
 #Generate Rule Arrays
-<% @networks.sort.each do |key, network| -%>
+<% @rules.sort.each do |key, network| -%>
     <%- if network['ensure'] != "absent" -%>
         $Rule = Build-PuppetFirewallRule `
             <% if network['description'] -%>-Description "<%= network['description'] %>" `<%- end %>
