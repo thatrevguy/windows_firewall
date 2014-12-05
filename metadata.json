@@ -1,17 +1,12 @@
 {
   "name": "thoward-windows_firewall",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "thoward",
   "summary": "puppet windows firewall module",
   "license": "Apache License, Version 2.0",
   "source": "https://github.com/hathoward/windows_firewall",
   "project_page": "https://github.com/hathoward/windows_firewall",
   "issues_url": "https://github.com/hathoward/windows_firewall/issues",
-  "dependencies": [
-    {"name":"puppetlabs/stdlib","version_requirement":"4.3.2"},
-    {"name":"joshcooper/powershell","version_requirement":"0.0.6"},
-    {"name":"liamjbennett/win_facts","version_requirement":"0.0.2"}
-  ],
   "operatingsystem_support": [
     {
       "operatingsystem": "Windows",
@@ -31,5 +26,10 @@
       "version_requirement": ">=3.7.2 <4.0.0"
     }
   ],
-  "description": "Module for managing windows firewall."  
+  "description": "Module for managing windows firewall.",
+  "dependencies": [
+    {"name":"puppetlabs/stdlib","version_requirement":"4.3.2"},
+    {"name":"joshcooper/powershell","version_requirement":"0.0.6"},
+    {"name":"liamjbennett/win_facts","version_requirement":"0.0.2"}
+  ]
 }
