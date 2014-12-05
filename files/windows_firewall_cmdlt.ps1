@@ -219,7 +219,7 @@ function Disable-SystemFirewallRule
     param
     (
         [String[]]$PuppetRules,
-		[switch]$PuppetValidation
+        [switch]$PuppetValidation
     )
 
     $Firewall = New-Object -ComObject HNetCfg.FwPolicy2
