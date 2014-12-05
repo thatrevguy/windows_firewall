@@ -15,7 +15,7 @@ function Build-PuppetFirewallRule {
         [string]$IcmpTypesAndCodes = '',
         [ValidatePattern('^(In|Out|1|2)$')]
         [string]$Direction = 'In',
-        [string]$Interfaces = '',
+        $Interfaces = '',
         [ValidatePattern('^(((Wireless|Lan|RemoteAccess)(,(?!$))?(?!\3)){1,2}|All)$')]
         [string]$InterfaceTypes = 'All',
         [ValidatePattern('^(True|False)$')]
