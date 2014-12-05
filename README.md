@@ -134,7 +134,7 @@ Determines outbound policy for all profiles. If not included, module will assume
 
 #####`control_rules`
 Determines whether or not module applies rules defined in hiera. Valid values are 'true' and 'false'.
-**_WARNING**:_ Enabling this makes puppet the authoritative source for ALL of the system's firewall rules. Any rules that do not match something defined in hiera will be disabled. Make sure you have console access when testing.
+<br/> **_WARNING:_** Enabling this makes puppet the authoritative source for ALL of the system's firewall rules. Any rules that do not match something defined in hiera will be disabled. Make sure you have console access when testing.
 
 #####`rule_key`
 Determines what key name is used to load firewall rules from hiera.
