@@ -86,12 +86,13 @@ class { 'windows_firewall':
     profile_state => 'on',
     in_policy     => 'BlockInbound',
     out_policy    => 'AllowOutbound',
+    control_rules => true,
+    rule_key => 'windows_networks',
+    postrun_facts => true,
 }
 ```
-Windows_firewall will by default load rules from hiera stored as hashes under "windows_networks" variable.
-```puppet
-$networks = hiera_hash('windows_networks')
-```
+Windows_firewall loads rules from hiera stored as hashes using key defined in 'rule_key'.
+
 Rules can be defined using json or yaml data resource. Below is a json example:
 ```json
 {
@@ -131,8 +132,12 @@ Determines inbound policy for all profiles. If not included, module will assume 
 #####`out_policy`
 Determines outbound policy for all profiles. If not included, module will assume that outbound policy is AllowOutbound. Valid values are 'AllowOutbound' and 'BlockOutbound'.
 
-#####`networks`
-Determines what variable name is used to load firewall rules from hiera.
+#####`control_rules`
+Determines whether or not module applies rules defined in hiera. Valid values are 'true' and 'false'.
+**_WARNING**:_ Enabling this makes puppet the authoritative source for ALL of the system's firewall rules. Any rules that do not match something defined in hiera will be disabled. Make sure you have console access when testing.
+
+#####`rule_key`
+Determines what key name is used to load firewall rules from hiera.
 
 #####`postrun_facts`
 Determines whether or not to run "puppet facts upload" if a configuration change occurs.
