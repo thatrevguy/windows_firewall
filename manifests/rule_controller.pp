@@ -8,9 +8,6 @@ class windows_firewall::rule_controller (
             command => template('windows_firewall/apply_rules.ps1'),
             unless => template('windows_firewall/validate_rules.ps1'),
             provider => powershell,						
-        }~>
-        class { 'windows_firewall::postrun_facts':
-            enabled => $postrun_facts,
         }
     }
 }

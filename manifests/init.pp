@@ -2,7 +2,7 @@ class windows_firewall (
     $profile_state = 'on',
     $in_policy = 'BlockInbound',
     $out_policy = 'AllowOutbound',
-	$control_rules = false,
+    $control_rules = false,
     $rule_key = 'windows_networks',
     $postrun_facts = false,
 ){
@@ -33,6 +33,9 @@ class windows_firewall (
             class { 'windows_firewall::rule_controller':
                 enabled => $control_rules,
                 rule_key => $rule_key,
+            }~>
+			class { 'windows_firewall::postrun_facts':
+                enabled => $postrun_facts,
             }
         }
         default: {
