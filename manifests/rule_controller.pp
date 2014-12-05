@@ -1,6 +1,6 @@
 class windows_firewall::rule_controller (
     $enabled = false,
-	$rule_key,
+	$rule_key = nill,
 ){
     if $enabled == true {
 	    $rules = hiera_hash('${rule_key}'),
