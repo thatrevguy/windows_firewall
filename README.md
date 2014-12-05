@@ -129,7 +129,7 @@ Determines whether or not service profiles are enabled. If not included, module 
 Determines inbound policy for all profiles. If not included, module will assume that inbound policy is BlockInbound. Valid values are 'AllowInbound' and 'BlockInbound'.
 
 #####`out_policy`
-Determines outbound policy for all profiles. If not included, module will assume that inbound policy is AllowOutbound. Valid values are 'AllowOutbound' and 'BlockOutbound'.
+Determines outbound policy for all profiles. If not included, module will assume that outbound policy is AllowOutbound. Valid values are 'AllowOutbound' and 'BlockOutbound'.
 
 #####`networks`
 Determines what variable name is used to load firewall rules from hiera.
