@@ -22,10 +22,10 @@ class windows_firewall (
                 in_policy => $in_policy,
                 out_policy => $out_policy,
             }->
-            file { "${::env_windows_installdir}/var/files":
+            file { "${::puppet_vardir}/files":
                 ensure => directory,
             }->
-            file { "${::env_windows_installdir}/var/files/windows_firewall_cmdlt.ps1":
+            file { "${::puppet_vardir}/files/windows_firewall_cmdlt.ps1":
                 ensure => present,
                 source_permissions => ignore,
                 source => "puppet:///modules/windows_firewall/windows_firewall_cmdlt.ps1",
