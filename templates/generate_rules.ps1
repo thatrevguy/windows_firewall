@@ -1,4 +1,4 @@
-Import-Module "C:\ProgramData\PuppetLabs\puppet\var\files\windows_firewall_cmdlt.ps1"
+Import-Module "$env:ProgramData\PuppetLabs\puppet\var\files\windows_firewall_cmdlt.ps1"
 $PresentPuppetRules = @()
 $AbsentPuppetRules = @()
 #Generate Rule Arrays
