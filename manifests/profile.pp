@@ -1,3 +1,4 @@
+#Defines state of all profiles.
 class windows_firewall::profile(
   $profile_state = 'off',
 ) {
@@ -6,7 +7,7 @@ class windows_firewall::profile(
     if $::profile_state_fact != $profile_state {
         $command = "c:\\Windows\\System32\\netsh.exe advfirewall set allprofiles state ${profile_state}"
         exec { "Turn profiles ${profile_state}":
-            command => $command,
+            command  => $command,
             provider => windows,
         }
     }
