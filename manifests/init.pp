@@ -13,26 +13,26 @@ class windows_firewall (
 
             service { 'windows_firewall':
                 ensure => 'running',
-                  name => $firewall_name,
+                name   => $firewall_name,
                 enable => true,
             }->
             class { 'windows_firewall::profile':
                 profile_state => $profile_state,
             }->
             class { 'windows_firewall::policy':
-                 in_policy => $in_policy,
+                in_policy  => $in_policy,
                 out_policy => $out_policy,
             }->
             file { "${::puppet_vardir}/files":
                 ensure => directory,
             }->
             file { "${::puppet_vardir}/files/windows_firewall_cmdlt.ps1":
-                            ensure => present,
+                ensure             => present,
                 source_permissions => ignore,
-                            source => 'puppet:///modules/windows_firewall/windows_firewall_cmdlt.ps1',
+                source             => 'puppet:///modules/windows_firewall/windows_firewall_cmdlt.ps1',
             }->
             class { 'windows_firewall::rule_controller':
-                 enabled => $control_rules,
+                enabled  => $control_rules,
                 rule_key => $rule_key,
             }~>
             class { 'windows_firewall::postrun_facts':
