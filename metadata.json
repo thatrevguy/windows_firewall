@@ -3,7 +3,7 @@
   "version": "0.1.2",
   "author": "thoward",
   "summary": "puppet windows firewall module",
-  "license": "Apache License, Version 2.0",
+  "license": "Apache-2.0",
   "source": "https://github.com/hathoward/windows_firewall",
   "project_page": "https://github.com/hathoward/windows_firewall",
   "issues_url": "https://github.com/hathoward/windows_firewall/issues",
