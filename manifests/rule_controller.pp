@@ -1,4 +1,5 @@
-#Class encapsulates "apply_rules" to allow disabling of firewall rule application.
+#Class encapsulates "apply_rules".
+#Allows disabling of firewall rule application.
 class windows_firewall::rule_controller (
     $enabled = false,
     $rule_key,

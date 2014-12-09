@@ -1,4 +1,6 @@
-#Encapsulates policy and rule classes. Can disable postrun_facts and control_rules. "rule_key" value used to identify key name that stores firewall rules in Hiera.
+#Encapsulates policy and rule classes.
+#Can disable postrun_facts and control_rules. 
+#"rule_key" value used to identify key name that stores firewall rules in Hiera.
 class windows_firewall (
     $profile_state = 'on',
     $in_policy = 'BlockInbound',
