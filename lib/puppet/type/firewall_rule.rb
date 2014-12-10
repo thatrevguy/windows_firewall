@@ -2,11 +2,11 @@
 Puppet::Type.newtype(:firewall_rule) do
   @doc = "Define Windows advanced firewall rules."
 
-  def self.title_patterns
-    [/^.*$/]
-  end
-
   ensurable
+
+  newparam(:name) do
+    desc "Name."
+  end
 
   newproperty(:firewall_rules) do
     desc "Apply firewall rule hash from Hiera."
