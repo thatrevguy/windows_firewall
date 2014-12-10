@@ -1,6 +1,10 @@
 # lib/puppet/type/firewall_rule.rb
 Puppet::Type.newtype(:firewall_rule) do
-  desc "Define Windows advanced firewall rules."
+  @doc = "Define Windows advanced firewall rules."
+
+  def self.title_patterns
+    [/^.*$/]
+  end
 
   ensurable
 
