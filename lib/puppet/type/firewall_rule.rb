@@ -2,14 +2,12 @@
 Puppet::Type.newtype(:firewall_rule) do
   @doc = "Define Windows advanced firewall rules."
 
-  ensurable
-
   newparam(:name) do
     desc "Name."
 	isnamevar
   end
 
-  newproperty(:firewall_rules) do
+  newproperty(:rule_hash) do
     desc "Apply firewall rule hash from Hiera."
 
     rule_attr_name = Hash.new()

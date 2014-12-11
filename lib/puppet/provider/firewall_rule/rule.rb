@@ -1,15 +1,15 @@
 Puppet::Type.type(:firewall_rule).provide(:rule) do
   desc "Operate on rules for ensurable"
-  
-  def create
-    #File.open(@resource[:name], "w") { |f| f.puts "" } # Create an empty file
+
+  def apply_rule
+    require 'win32ole'
+    firewall = WIN32OLE.new("HNetCfg.FwPolicy2")
+    firewall.rules.each do |rule|
+      puts rule.name
+    end
   end
   
-  def destroy
-    #File.unlink(@resource[:name])
-  end
+  def validate_rule
   
-  def exists?
-    #File.exists?(@resource[:name])
   end
 end
