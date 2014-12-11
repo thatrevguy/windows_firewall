@@ -9,7 +9,7 @@ Puppet::Type.newtype(:firewall_rule) do
 
   newproperty(:enabled) do
     newvalue(:true) do
-      resource[:provider].create
+      :create
       nil
     end
   end
