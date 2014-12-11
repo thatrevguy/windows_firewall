@@ -45,11 +45,10 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
   end
   
   def rule_hash
-    #should_rules = @resource.should(:rule_hash)
-	#Firewall.getrules
+    @resource.should(:rule_hash)
   end
   
-  #def rule_hash=(value)
-  #  
-  #end
+  def rule_hash=(value)
+    value
+  end
 end
