@@ -31,6 +31,6 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
   end
   
   def rule_hash=(value)
-    File.open('C:\new_file.txt', "w"){  |f| f.puts $should_rules }
+    File.open('C:\new_file.txt', "w"){ |f| f.puts value }
   end
 end
