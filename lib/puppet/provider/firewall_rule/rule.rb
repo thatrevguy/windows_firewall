@@ -8,4 +8,8 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
       puts rule.name
     end
   end
+  
+  def rule_hash=(value)
+  
+  end
 end
