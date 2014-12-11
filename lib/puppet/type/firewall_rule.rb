@@ -24,7 +24,7 @@ Puppet::Type.newtype(:firewall_rule) do
     validate do |value|
       value.each do |name, rule|
         validation_hash.keys.each do |key|
-          if validation_hash[key]
+          if rule[key]
             message = "Rule \'%s\' %s attribute value of \'%s\' is invalid." % [name, key, rule[key].to_s]
             raise ArgumentError, message if rule[key].to_s !~ validation_hash[key]
           end
