@@ -8,7 +8,7 @@ Puppet::Type.newtype(:firewall_rule) do
   end
 
   newparam(:enabled) do
-    if value do
+    if value
       if @resource.provider and @resource.provider.respond_to?(:create)
           @resource.provider.create
       else
