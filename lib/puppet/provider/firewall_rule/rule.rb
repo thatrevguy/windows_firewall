@@ -49,7 +49,7 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
 	#Firewall.getrules
   end
   
-  def rule_hash=(value)
-    
-  end
+  #def rule_hash=(value)
+  #  
+  #end
 end
