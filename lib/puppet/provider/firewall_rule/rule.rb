@@ -3,7 +3,7 @@ require 'win32ole'
 Puppet::Type.type(:firewall_rule).provide(:rule) do
   desc "Configures rules"
 
-  system_rules = WIN32OLE.new("HNetCfg.FwPolicy2").rules
+  system_rules = WIN32OLE.new("HNetCfg.FwPolicy2")
 
   attr_hash = Hash.new()
   attr_hash['ensure'] = [nil, 'present']
@@ -28,7 +28,7 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
 
   #Get system rules
   def get_rules
-    system_rules.each do |rule|
+    system_rules.rules.each do |rule|
       puts rule.name
     end
   end
