@@ -1,9 +1,10 @@
 require 'win32ole'
 
 class Firewall
-  @system_rules = WIN32OLE.new("HNetCfg.FwPolicy2")
+  @system_rules = WIN32OLE.new("HNetCfg.FwPolicy2").rules
+
   def self.getrules
-    @system_rules.rules.each do |rule|
+    @system_rules.each do |rule|
       puts rule.name
 	end
   end
