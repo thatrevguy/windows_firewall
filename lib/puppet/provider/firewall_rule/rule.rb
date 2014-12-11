@@ -29,16 +29,12 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
   def create
     puts self.rule_hash
   end
-  
-  def enabled
-  
-  end
 
   def rule_hash
     $should_rules = @resource.should(:rule_hash)
   end
   
   def rule_hash=(value)
-    
+    create
   end
 end
