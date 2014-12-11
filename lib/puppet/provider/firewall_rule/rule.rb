@@ -40,7 +40,7 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
   def destroy
   end
   
-  def exist?
+  def exists?
   end
   
   def rule_hash
