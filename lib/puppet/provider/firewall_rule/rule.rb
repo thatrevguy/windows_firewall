@@ -36,6 +36,6 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
   end
   
   def rule_hash=(value)
-    create
+    
   end
 end
