@@ -35,8 +35,8 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
   attr_hash['edge_traversal_options'] = ['EgdeTraversalOptions', 'Block']
 
   def rule_hash
-    should_rules = @resource.should(:rule_hash)
-	Firewall.getrules
+    #should_rules = @resource.should(:rule_hash)
+	#Firewall.getrules
   end
   
   def rule_hash=(value)
