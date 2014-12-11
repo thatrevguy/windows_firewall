@@ -7,7 +7,16 @@ Puppet::Type.newtype(:firewall_rule) do
 	isnamevar
   end
 
-  ensurable
+  newparam(:enabled) do
+    newvalue(:true) do
+      if @resource.provider and @resource.provider.respond_to?(:create)
+          @resource.provider.create
+      else
+          @resource.create
+      end
+      nil
+    end
+  end
 
   newproperty(:rule_hash) do
     desc "Apply firewall rule hash from Hiera."

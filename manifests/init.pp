@@ -35,6 +35,7 @@ class windows_firewall (
             }->
             firewall_rule { 'rules':
                 rule_hash => hiera_hash($rule_key)
+                enabled => true,
             }->
             class { 'windows_firewall::rule_controller':
                 enabled  => $control_rules,
