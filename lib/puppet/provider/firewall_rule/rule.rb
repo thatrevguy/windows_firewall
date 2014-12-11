@@ -6,7 +6,6 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
   desc "Configures rules"
 
   system_rules = WIN32OLE.new("HNetCfg.FwPolicy2").rules
-  $should_rules = nil
 
   attr_hash = Hash.new()
   attr_hash['ensure'] = [nil, 'present']
@@ -30,11 +29,11 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
   attr_hash['edge_traversal_options'] = ['EgdeTraversalOptions', 'Block']
 
   def create
-    puts rule_hash
+    puts @data
   end
 
   def rule_hash
-    @resource.should(:rule_hash)
+    @data = @resource.should(:rule_hash)
 	rule_hash = 1
   end
   
