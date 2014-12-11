@@ -4,7 +4,7 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
 
   system_rules = WIN32OLE.new("HNetCfg.FwPolicy2").rules
   system_rules.each do |system_rule|
-    puts rule.name
+    puts system_rule.name
   end
   
   def rule_hash
