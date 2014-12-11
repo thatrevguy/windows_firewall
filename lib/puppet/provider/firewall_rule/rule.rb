@@ -1,6 +1,6 @@
 require 'win32ole'
 
-class firewall
+class Firewall
   @system_rules = WIN32OLE.new("HNetCfg.FwPolicy2")
   def self.getrules
     @system_rules.rules.each do |rule|
@@ -35,7 +35,7 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
 
   def rule_hash
     #should_rules = @resource.should(:rule_hash)
-	firewall.getrules
+	Firewall.getrules
   end
   
   def rule_hash=(value)
