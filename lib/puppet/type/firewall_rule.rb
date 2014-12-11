@@ -6,6 +6,7 @@ Puppet::Type.newtype(:firewall_rule) do
 
   newparam(:name) do
     desc "Name."
+	isnamevar
   end
 
   newproperty(:firewall_rules) do
