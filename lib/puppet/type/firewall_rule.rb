@@ -1,4 +1,5 @@
 # lib/puppet/type/firewall_rule.rb
+require 'win32ole'
 Puppet::Type.newtype(:firewall_rule) do
   @doc = "Define Windows advanced firewall rules."
 
@@ -32,6 +33,11 @@ Puppet::Type.newtype(:firewall_rule) do
           end
         end
       end
+    end
+
+    firewall = WIN32OLE.new("HNetCfg.FwPolicy2")
+    firewall.rules.each do |rule|
+      puts rule.name
     end
   end
 end
