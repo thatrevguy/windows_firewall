@@ -7,13 +7,9 @@ Puppet::Type.newtype(:firewall_rule) do
 	isnamevar
   end
 
-  newparam(:enabled) do |value|
-    if value
-      if @resource.provider and @resource.provider.respond_to?(:create)
-          @resource.provider.create
-      else
-          @resource.create
-      end
+  newproperty(:enabled) do
+    newvalue(:true) do
+      resource[:provider].create
       nil
     end
   end
