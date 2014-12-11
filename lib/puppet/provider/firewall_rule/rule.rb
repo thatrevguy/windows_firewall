@@ -34,6 +34,15 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
   attr_hash['action'] = ['Action', 'Allow']
   attr_hash['edge_traversal_options'] = ['EgdeTraversalOptions', 'Block']
 
+  def create
+  end
+  
+  def destroy
+  end
+  
+  def exist?
+  end
+  
   def rule_hash
     #should_rules = @resource.should(:rule_hash)
 	#Firewall.getrules
