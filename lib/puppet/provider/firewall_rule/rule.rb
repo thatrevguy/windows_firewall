@@ -1,11 +1,4 @@
 require 'win32ole'
-firewall = WIN32OLE.new("HNetCfg.FwPolicy2")
-#Get system rules
-def get_rules
-  firewall.rules.each do |rule|
-    puts rule.name
-  end
-end
 
 Puppet::Type.type(:firewall_rule).provide(:rule) do
   desc "Configures rules"
@@ -32,6 +25,13 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
   attr_hash['edge_traversal'] = ['EdgeTraversal', 'False']
   attr_hash['action'] = ['Action', 'Allow']
   attr_hash['edge_traversal_options'] = ['EgdeTraversalOptions', 'Block']
+
+  #Get system rules
+  def get_rules
+    system_rules.each do |rule|
+      puts rule.name
+    end
+  end
 
   def create
     get_rules
