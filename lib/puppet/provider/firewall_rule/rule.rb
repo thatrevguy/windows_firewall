@@ -41,6 +41,7 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
   end
   
   def exists?
+    true
   end
   
   def rule_hash
