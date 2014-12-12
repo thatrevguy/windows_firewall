@@ -45,7 +45,8 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
   end
   
   def rule_hash
-    #@resource.should(:rule_hash)
+    @resource.should(:rule_hash) = '120'
+	120
   end
   
   def rule_hash=(value)
