@@ -12,6 +12,8 @@ Puppet::Type.newtype(:firewall_rule) do
   newproperty(:rule_hash) do
     desc "Apply firewall rule hash from Hiera."
 
+    isrequired
+
     validation_hash = Hash.new()
 	validation_hash['ensure'] = /^(present|absent)$/i
     validation_hash['protocol'] = /^(ICMPv4|IGMP|TCP|UDP|IPv6|IPv6Route|IPv6Frag|GRE|ICMPv6|IPv6NoNxt|IPv6Opts|VRRP|PGM|L2TP|1|2|6|17|41|43|44|47|58|59|60|112|113|115)$/i
