@@ -1,8 +1,8 @@
 cmd = "c:\\Windows\\System32\\netsh.exe advfirewall show allprofiles firewallpolicy | findstr \"Policy\""
-state = Facter::Util::Resolution.exec(cmd).chomp
 
 Facter.add('in_policy_fact') do
   confine :operatingsystem => 'windows'
+  state = Facter::Util::Resolution.exec(cmd).chomp
   setcode do
     if state.match('AllowInbound')
       'AllowInbound'
@@ -14,6 +14,7 @@ end
 
 Facter.add('out_policy_fact') do
   confine :operatingsystem => 'windows'
+  state = Facter::Util::Resolution.exec(cmd).chomp
   setcode do
     if state.match('AllowOutbound')
       'AllowOutbound'
