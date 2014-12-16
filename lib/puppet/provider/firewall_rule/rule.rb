@@ -38,11 +38,12 @@ def system_rule_hash(rulename)
         attr_hash['edge_traversal'] = rule.edgetraversal
         attr_hash['action'] = rule.action
         attr_hash['edge_traversal_options'] = rule.edgetraversaloptions
-        rule_hash[rule.name] = attr_hash
       end
+
+      rule_hash[rule.name] = attr_hash
     end
   end
-  Digest::MD5.hexdigest Marshal.dump(rule_hash.sort)
+  Digest::MD5.hexdigest Marshal.dump(rule_hash.sort.to_s)
 end
 
 Puppet::Type.type(:firewall_rule).provide(:rule) do
@@ -59,8 +60,8 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
   end
   
   def rule_hash
-    File.open(File.join('C:\\', 'system_rules.txt'), 'w') {|f| f.write(system_rule_hash(nil)) }
-    File.open(File.join('C:\\', 'json_rules.txt'), 'w') {|f| f.write(@resource.should(:rule_hash)) }
+    #File.open(File.join('C:\\', 'system_rules.txt'), 'w') {|f| f.write(system_rule_hash(nil)) }
+    #File.open(File.join('C:\\', 'json_rules.txt'), 'w') {|f| f.write(@resource.should(:rule_hash)) }
     #@resource.should(:rule_hash)
 	system_rule_hash(nil)
   end

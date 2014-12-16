@@ -118,7 +118,7 @@ Puppet::Type.newtype(:firewall_rule) do
         end
         value[name] = new_hash
       end
-      value = Digest::MD5.hexdigest Marshal.dump(value.sort)
+      value = Digest::MD5.hexdigest Marshal.dump(value.sort.to_s)
     end
   end
 end
