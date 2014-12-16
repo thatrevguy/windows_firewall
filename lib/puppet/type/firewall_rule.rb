@@ -101,8 +101,8 @@ Puppet::Type.newtype(:firewall_rule) do
     munge_hash['edge_traversal_options'] = [ 0, { 'Block'=>0, 'Allow'=>1, 'Defer to App'=>2, 'Defer to User'=>3 } ]
 
     munge do |value|
-    new_hash = Hash.new()
       value.each do |name, rule|
+        new_hash = Hash.new()
         munge_hash.keys.each do |key|
           if rule.has_key?(key)
             new_hash[key] = parse_munge_hash(rule[key], munge_hash[key], key)
