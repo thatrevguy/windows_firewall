@@ -10,7 +10,7 @@ class Firewall
   end
 end
 
-def rule_hash(rulename)
+def system_rule_hash(rulename)
   rules = WIN32OLE.new("HNetCfg.FwPolicy2").rules
   rule_hash = Hash.new()
 
@@ -59,7 +59,7 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
   end
   
   def rule_hash
-    rule_hash(nil)
+    system_rule_hash(nil)
     #@resource.should(:rule_hash)
   end
   
