@@ -7,28 +7,28 @@ function Build-PuppetFirewallRule {
         [string]$ApplicationName = '',
         [string]$ServiceName = '',
         [ValidatePattern('^(ICMPv4|IGMP|TCP|UDP|IPv6|IPv6Route|IPv6Frag|GRE|ICMPv6|IPv6NoNxt|IPv6Opts|VRRP|PGM|L2TP|1|2|6|17|41|43|44|47|58|59|60|112|113|115)$')]
-        [string]$Protocol = 'TCP',
+        $Protocol = 'TCP',
         [string]$LocalPorts = '',
         [string]$RemotePorts = '',
         [string]$LocalAddresses = '',
         [string]$RemoteAddresses = '',
         [string]$IcmpTypesAndCodes = '',
         [ValidatePattern('^(In|Out|1|2)$')]
-        [string]$Direction = 'In',
+        $Direction = 'In',
         $Interfaces = '',
         [ValidatePattern('^(((Wireless|Lan|RemoteAccess)(,(?!$))?(?!\3)){1,2}|All)$')]
         [string]$InterfaceTypes = 'All',
         [ValidatePattern('^(True|False)$')]
-        [string]$Enabled = 'True',
+        $Enabled = 'True',
         [string]$Grouping = '',
         [ValidatePattern('^(((Domain|Private|Public)(,(?!$))?(?!.*\3)){1,3}|1|2|3|4|5|6|7|2147483647)$')]
-        [string]$Profiles = 'Domain,Private,Public',
+        $Profiles = 'Domain,Private,Public',
         [ValidatePattern('^(True|False)$')]
-        [string]$EdgeTraversal = 'False',
+        $EdgeTraversal = 'False',
         [ValidatePattern('^(Allow|Block|1|0)$')]
-        [string]$Action = 'Allow',
+        $Action = 'Allow',
         [ValidatePattern('^(Block|Allow|Defer to App|Defer to User|0|1|2|3)$')]
-        [string]$EdgeTraversalOptions = 'Block'
+        $EdgeTraversalOptions = 'Block'
     )
     
     #Convert protocol string to int

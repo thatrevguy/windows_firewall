@@ -279,5 +279,6 @@ This module is tested on the following platforms:
 Submit issues or pull requests to [GitHub](https://github.com/hathoward/windows_firewall)
 
 ##Release-Notes
+* 0.1.5 (pcallewaert) - fixes firewall_policy breaks facts on linux
 * 0.0.8 option to update facts post configuration added
 * 0.0.4 switch over to hiera to store rules
