@@ -113,8 +113,8 @@ Puppet::Type.newtype(:firewall_rule) do
               new_hash[key] = munge_hash[key][0]
             end
           end
-          value[name] = new_hash
         end
+        value[name] = new_hash
       end
       value.sort
     end
