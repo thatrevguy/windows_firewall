@@ -1,4 +1,6 @@
 # lib/puppet/type/firewall_rule.rb
+require 'digest/md5'
+
 Puppet::Type.newtype(:firewall_rule) do
   @doc = "Define Windows advanced firewall rules."
 
@@ -116,7 +118,7 @@ Puppet::Type.newtype(:firewall_rule) do
         end
         value[name] = new_hash
       end
-      value.sort
+      value = Digest::MD5.hexdigest Marshal.dump(value.sort)
     end
   end
 end

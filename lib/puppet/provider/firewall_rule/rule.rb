@@ -1,4 +1,5 @@
 require 'win32ole'
+require 'digest/md5'
 
 class Firewall
   @system_rules = WIN32OLE.new("HNetCfg.FwPolicy2").rules
@@ -41,8 +42,7 @@ def system_rule_hash(rulename)
       end
     end
   end
-
-  return rule_hash.sort
+  Digest::MD5.hexdigest Marshal.dump(rule_hash.sort)
 end
 
 Puppet::Type.type(:firewall_rule).provide(:rule) do
