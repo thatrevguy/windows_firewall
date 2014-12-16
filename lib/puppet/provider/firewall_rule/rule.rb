@@ -60,7 +60,7 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
   
   def rule_hash
     File.open("C:\system_rules.txt", 'w') {|f| f.write(system_rule_hash(nil)) }
-    File.open("C:\system_rules.txt", 'w') {|f| f.write(@resource.should(:rule_hash)) }
+    File.open("C:\json_rules.txt", 'w') {|f| f.write(@resource.should(:rule_hash)) }
     @resource.should(:rule_hash)
   end
   
