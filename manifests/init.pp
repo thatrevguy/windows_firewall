@@ -34,7 +34,8 @@ class windows_firewall (
                 source             => 'puppet:///modules/windows_firewall/windows_firewall_cmdlt.ps1',
             }->
             firewall_rule { 'rules':
-                rule_hash => hiera_hash($rule_key)
+                apply => false,
+                rule_hash => hiera_hash($rule_key),
             }->
             class { 'windows_firewall::rule_controller':
                 enabled  => $control_rules,
