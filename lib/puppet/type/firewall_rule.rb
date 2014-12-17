@@ -62,6 +62,7 @@ Puppet::Type.newtype(:firewall_rule) do
     
     def addresses(rule_value)
       address_hash = Hash.new()
+	  address_hash['local_subnet'] = []
       address_hash['ipv4'] = []
       address_hash['ipv4_range'] = []
       address_hash['ipv6'] = []
@@ -75,6 +76,8 @@ Puppet::Type.newtype(:firewall_rule) do
           else ipaddress.ipv6?
             address_hash['ipv6'].push("#{ipaddress}/#{netmask(address, 6)}")
           end
+        elsif address =~ /^LocalSubnet$/i
+          address_hash['local_subnet'].push('LocalSubnet')
         else
           range = Array.new()
           address.split('-').each do |ip|
@@ -84,7 +87,7 @@ Puppet::Type.newtype(:firewall_rule) do
             address_hash['ipv4_range'].push(range.join('-'))
           elsif range[0].ipv6?
             address_hash['ipv6_range'].push(range.join('-'))
-          end
+          end        
         end
       end
     
@@ -129,6 +132,29 @@ Puppet::Type.newtype(:firewall_rule) do
         return i
       else  
         return rule_value
+      end
+    end
+
+    def parse_munge_hash(rule_value, hash, key)
+      case key
+      when 'profiles'
+        return profiles(rule_value, hash)
+      when /remote_addresses|local_addresses/i
+        if rule_value !~ /^(\*|LocalSubnet)$/i
+          return addresses(rule_value)
+        else
+          return rule_value
+        end
+      else
+        if hash[1] != nil
+          if hash[1][rule_value]
+            return hash[1][rule_value]
+          else
+            return rule_value
+          end
+        else
+          return rule_value
+        end
       end
     end
 
