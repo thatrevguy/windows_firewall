@@ -11,7 +11,7 @@ Puppet::Type.newtype(:firewall_rule) do
 
   ensurable do
     newvalue(:present) do
-      @resource.provider.create
+      provider.create
     end
   end
 
