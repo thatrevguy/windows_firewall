@@ -38,7 +38,11 @@ def system_rule_hash
       attr_hash['action'] = rule.action
       attr_hash['edge_traversal_options'] = rule.edgetraversaloptions
 
-      rule_hash[rule.name] = attr_hash
+      if rule_hash.has_key?(rule.name)
+        return 'duplicate found'
+      else
+        rule_hash[rule.name] = attr_hash
+      end
     end
   end
   Digest::MD5.hexdigest Marshal.dump(rule_hash.sort.to_s)
