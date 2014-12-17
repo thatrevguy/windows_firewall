@@ -10,6 +10,7 @@ Puppet::Type.newtype(:firewall_rule) do
   end
 
   ensurable do
+    defaultto(:present)
     newvalue(:present) do
       provider.create
     end
