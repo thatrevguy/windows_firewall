@@ -9,7 +9,11 @@ Puppet::Type.newtype(:firewall_rule) do
 	isnamevar
   end
 
-  ensurable
+  ensurable do
+    newvalue(:present) do
+      @resource.provider.create
+    end
+  end
 
   newproperty(:rule_hash) do
     desc "Apply firewall rule hash from Hiera."

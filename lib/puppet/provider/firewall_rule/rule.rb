@@ -52,12 +52,12 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
     end
   end
   
-  def destroy
-  end
+  #def destroy
+  #end
   
-  def exists?
-    true
-  end
+  #def exists?
+  #  true
+  #end
   
   def rule_hash
     #File.open(File.join('C:\\', 'system_rules.txt'), 'w') {|f| f.write(system_rule_hash(nil)) }
