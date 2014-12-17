@@ -45,10 +45,20 @@ end
 Puppet::Type.type(:firewall_rule).provide(:rule) do
   desc "Configures rules"
 
-  def create
-    should_rule_hash = @resource.should(:rule_hash)
-    unless should_rule_hash == self.rule_hash
-      self.rule_hash = should_rule_hash
+  def apply
+    if !value
+      value
+    else
+      :true
+    end
+  end
+  
+  def apply=(value)
+    if value
+      should_rule_hash = @resource.should(:rule_hash)
+      unless should_rule_hash == self.rule_hash
+        self.rule_hash = should_rule_hash
+      end
     end
   end
   
@@ -56,7 +66,7 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
   #end
   
   def exists?
-  #  true
+    true
   end
   
   def rule_hash
