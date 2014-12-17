@@ -46,7 +46,7 @@ def system_rule_md5
   rules.each do |rule|
     if rule.enabled == true
       if rule_hash.has_key?(rule.name)
-        rule_hash["#{rule.name} #{rule_hash.rkey_count(rule.name)}"] = attr_hash(rule)
+        rule_hash["#{rule.name} #{rule_hash.rkey_count(/^#{rule.name}.*$/i)}"] = attr_hash(rule)
       else
         rule_hash[rule.name] = attr_hash(rule)
       end
