@@ -16,7 +16,7 @@ Puppet::Type.newtype(:firewall_rule) do
   #  end
   #end
     newproperty(:apply) do
-      newvalues (:true, :false)
+      newvalues(:true, :false)
     end   
 
   newproperty(:rule_hash) do
