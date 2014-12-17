@@ -46,7 +46,7 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
   desc "Configures rules"
 
   def create
-    should_rules = @resource.should(:rule_hash)
+    should_rule_hash = @resource.should(:rule_hash)
     unless should_rule_hash == self.rule_hash
       self.rule_hash = should_rule_hash
     end
