@@ -45,31 +45,6 @@ end
 Puppet::Type.type(:firewall_rule).provide(:rule) do
   desc "Configures rules"
 
-  def apply
-    puts @resource.should(:apply)
-    if !@resource.should(:apply)
-      false
-    else
-      :true
-    end
-  end
-  
-  def apply=(value)
-    if value
-      should_rule_hash = @resource.should(:rule_hash)
-      unless should_rule_hash == self.rule_hash
-        self.rule_hash = should_rule_hash
-      end
-    end
-  end
-  
-  #def destroy
-  #end
-  
-  def exists?
-    true
-  end
-  
   def rule_hash
     #File.open(File.join('C:\\', 'system_rules.txt'), 'w') {|f| f.write(system_rule_hash(nil)) }
     #File.open(File.join('C:\\', 'json_rules.txt'), 'w') {|f| f.write(@resource.should(:rule_hash)) }
