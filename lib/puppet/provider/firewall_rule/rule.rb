@@ -1,6 +1,19 @@
 require 'win32ole'
 require 'digest/md5'
 
+class Hash
+  def rkey_count(search)
+    i = 1
+    search = Regexp.new(search.to_s) unless search.is_a?(Regexp)
+    keys.each do |key|
+      if key =~ search
+       i += 1
+      end
+    end
+    return i
+  end
+end
+
 def attr_hash(rule)
   attr_hash = Hash.new()
   attr_hash['ensure'] = 'present'
@@ -31,9 +44,9 @@ def system_rule_md5
   rule_hash = Hash.new()
 
   rules.each do |rule|
-    if rule.enabled == true and rule.direction == 1
+    if rule.enabled == true
       if rule_hash.has_key?(rule.name)
-        return 'duplicate found'
+        rule_hash["#{rule.name} #{rule_hash.rkey_count(rule.name)}"] = attr_hash(rule)
       else
         rule_hash[rule.name] = attr_hash(rule)
       end
