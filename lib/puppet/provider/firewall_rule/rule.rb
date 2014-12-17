@@ -1,16 +1,6 @@
 require 'win32ole'
 require 'digest/md5'
 
-class Firewall
-  @system_rules = WIN32OLE.new("HNetCfg.FwPolicy2").rules
-
-  def self.getrules(rules)
-    @system_rules.each do |rule|
-      puts rule.name
-	end
-  end
-end
-
 def attr_hash(rule)
   attr_hash = Hash.new()
   attr_hash['ensure'] = 'present'
@@ -56,6 +46,10 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
   desc "Configures rules"
 
   def create
+    should_rules = @resource.should(:rule_hash)
+    unless should_rule_hash == self.rule_hash
+      self.rule_hash = should_rule_hash
+    end
   end
   
   def destroy
@@ -73,6 +67,6 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
   end
   
   def rule_hash=(value)
-    
+    puts 'change!'
   end
 end
