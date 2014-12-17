@@ -47,7 +47,7 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
 
   def apply
     if :false
-      false
+      'false'
     else
       :true
     end
