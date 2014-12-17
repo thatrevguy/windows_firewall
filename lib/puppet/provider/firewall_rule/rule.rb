@@ -46,6 +46,7 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
   desc "Configures rules"
 
   def apply
+    puts @resource.should(:apply)
     if !@resource.should(:apply)
       'false'
     else
