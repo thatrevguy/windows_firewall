@@ -231,7 +231,7 @@
       "edge_traversal_options": 1
     },
     "Core Networking - Destination Unreachable Fragmentation Needed (ICMPv4-In)": {
-      "description": "Destination Unreachable Fragmentation Needed error messages are sent from any node that a packet traverses which is unable to forward the packet because fragmentation was needed and the don$([char]0x2019)t fragment bit was set.",
+      "description": "Destination Unreachable Fragmentation Needed error messages are sent from any node that a packet traverses which is unable to forward the packet because fragmentation was needed and the don't fragment bit was set.",
       "application_name": "System",
       "protocol": 1,
       "local_addresses": "*",

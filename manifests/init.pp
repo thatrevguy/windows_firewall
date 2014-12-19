@@ -25,20 +25,8 @@ class windows_firewall (
                 in_policy  => $in_policy,
                 out_policy => $out_policy,
             }->
-            file { "${::puppet_vardir}/files":
-                ensure => directory,
-            }->
-            file { "${::puppet_vardir}/files/windows_firewall_cmdlt.ps1":
-                ensure             => present,
-                source_permissions => ignore,
-                source             => 'puppet:///modules/windows_firewall/windows_firewall_cmdlt.ps1',
-            }->
             firewall_rule { 'rules':
                 rule_hash => hiera_hash($rule_key),
-            }->
-            class { 'windows_firewall::rule_controller':
-                enabled  => $control_rules,
-                rule_key => $rule_key,
             }~>
             class { 'windows_firewall::postrun_facts':
                 enabled => $postrun_facts,
