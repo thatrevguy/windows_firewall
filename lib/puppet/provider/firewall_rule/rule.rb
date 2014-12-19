@@ -98,19 +98,19 @@ def ensure_rules(rule_hash, check_flag)
       rule_count = system_rules.select('name', puppet_rule.name).count
       if rule_count > 0
         if !validate_rule(system_rules, puppet_rule, attr_names)
-          #return false if check_flag
-		  return puppet_rule.name if check_flag
+          return 'mismatch' if check_flag
+		  #return puppet_rule.name if check_flag
           set_rule(system_rules, puppet_rule, attr_names)
         end
       else
-        #return false if check_flag
-		return puppet_rule.name if check_flag
+        return 'mismatch' if check_flag
+		#return puppet_rule.name if check_flag
         system_rules.add(puppet_rule)
       end
 
       if rule_count > 1
-        #return false if check_flag
-		return puppet_rule.name if check_flag
+        return 'mismatch' if check_flag
+		#return puppet_rule.name if check_flag
         prune_rule(system_rules, puppet_rule.name, rule_count)
       end
     end
@@ -121,8 +121,8 @@ def ensure_rules(rule_hash, check_flag)
       if rule['ensure'] == 'absent'
         rule_count = system_rules.select('name', name).count
         while rule_count > 0 do
-          #return false if check_flag
-		  return name if check_flag
+          return 'mismatch' if check_flag
+		  #return name if check_flag
           system_rules.remove(name)
           rule_count = rule_count - 1
         end
@@ -139,8 +139,8 @@ def ensure_rules(rule_hash, check_flag)
     (system_rule_array - hash_rule_array).sort.uniq.each do |name|
       system_rules.select('name', name).each do |rule|
         if rule.enabled
-          #return false if check_flag
-		  return rule.name if check_flag
+          return 'mismatch' if check_flag
+		  #return rule.name if check_flag
           rule.setproperty('enabled', false)
         end
       end
@@ -148,13 +148,9 @@ def ensure_rules(rule_hash, check_flag)
   end
   
   
-  #return false if !present_rules(system_rules, puppet_rules, check_flag)
-  #return false if !absent_rules(system_rules, rule_hash, check_flag)
-  #return false if !disable_rules(system_rules, puppet_rules, check_flag)
-
-  return present_rules(system_rules, puppet_rules, check_flag)
-  #return absent_rules(system_rules, rule_hash, check_flag)
-  #return disable_rules(system_rules, puppet_rules, check_flag)
+  return 'mismatch' if present_rules(system_rules, puppet_rules, check_flag) == 'mismatch'
+  return 'mismatch' if absent_rules(system_rules, rule_hash, check_flag) == 'mismatch'
+  return 'mismatch' if disable_rules(system_rules, puppet_rules, check_flag) == 'mismatch'
 end
 
 Puppet::Type.type(:firewall_rule).provide(:rule) do
@@ -164,12 +160,11 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
     #File.open(File.join('C:\\', 'system_rules.txt'), 'w') {|f| f.write(system_rule_hash(nil)) }
     #File.open(File.join('C:\\', 'json_rules.txt'), 'w') {|f| f.write(@resource.should(:rule_hash)) }
     #@resource.should(:rule_hash)
-    #if !ensure_rules(@resource.should(:rule_hash), true)
-    #  return "mismatch found"
-    #else
-	  puts ensure_rules(@resource.should(:rule_hash), true)
+    if ensure_rules(@resource.should(:rule_hash), true) == 'mismatch'
+      return "mismatch found"
+    else
       return @resource.should(:rule_hash)
-    #end
+    end
   end
   
   def rule_hash=(value)
