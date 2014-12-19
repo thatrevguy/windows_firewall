@@ -152,7 +152,7 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
   desc "Configures rules"
 
   def rule_hash
-    if ensure_rules(@resource.should(:rule_hash), true) == 'mismatch' and @resource[:apply]
+    if ensure_rules(@resource.should(:rule_hash), true) == 'mismatch'
       return "mismatch found"
     else
       return @resource.should(:rule_hash)
@@ -160,6 +160,6 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
   end
   
   def rule_hash=(value)
-    ensure_rules(@resource.should(:rule_hash), false)
+    ensure_rules(@resource.should(:rule_hash), false) if @resource[:apply_rules]
   end
 end

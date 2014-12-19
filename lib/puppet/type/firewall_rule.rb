@@ -9,7 +9,7 @@ Puppet::Type.newtype(:firewall_rule) do
 	isnamevar
   end 
 
-  newparam(:apply, :boolean => true, :parent => Puppet::Parameter::Boolean)
+  newparam(:apply_rules, :boolean => true, :parent => Puppet::Parameter::Boolean)
 
   newproperty(:rule_hash) do
     desc "Apply firewall rule hash from Hiera."

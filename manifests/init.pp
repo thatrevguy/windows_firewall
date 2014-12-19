@@ -5,7 +5,7 @@ class windows_firewall (
     $profile_state = 'on',
     $in_policy = 'BlockInbound',
     $out_policy = 'AllowOutbound',
-    $control_rules = false,
+    $apply_rules = false,
     $rule_key = 'windows_networks',
     $postrun_facts = false,
 ){
@@ -26,7 +26,7 @@ class windows_firewall (
                 out_policy => $out_policy,
             }->
             firewall_rule { 'rules':
-                apply => $control_rules,
+                apply_rules => $apply_rules,
                 rule_hash => hiera_hash($rule_key),
             }~>
             class { 'windows_firewall::postrun_facts':
