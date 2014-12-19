@@ -154,11 +154,12 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
     #File.open(File.join('C:\\', 'system_rules.txt'), 'w') {|f| f.write(system_rule_hash(nil)) }
     #File.open(File.join('C:\\', 'json_rules.txt'), 'w') {|f| f.write(@resource.should(:rule_hash)) }
     #@resource.should(:rule_hash)
-    if !ensure_rules(@resource.should(:rule_hash), true)
-      return "mismatch found"
-    else
+    #if !ensure_rules(@resource.should(:rule_hash), true)
+    #  return "mismatch found"
+    #else
+	  puts ensure_rules(@resource.should(:rule_hash), true)
       return @resource.should(:rule_hash)
-    end
+    #end
   end
   
   def rule_hash=(value)
