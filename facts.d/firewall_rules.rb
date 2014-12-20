@@ -1,5 +1,4 @@
 require 'win32ole'
-require 'json'
 
 Facter.add('firewall_rules') do
   confine :operatingsystem => 'windows'
@@ -26,6 +25,6 @@ Facter.add('firewall_rules') do
       rule_hash[rule.name] = attr_hash
     end
 
-    return rule_hash.to_json
+    return rule_hash
   end
 end
