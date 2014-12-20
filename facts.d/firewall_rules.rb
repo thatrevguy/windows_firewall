@@ -1,8 +1,8 @@
-require 'win32ole'
-
-Facter.add('firewall_rules') do
+Facter.add(:firewall_rules) do
   confine :operatingsystem => 'windows'
   setcode do
+    require 'win32ole'
+
     system_rules = WIN32OLE.new("HNetCfg.FwPolicy2").rules
     rule_hash = Hash.new()
     attr_names = Hash.new()
