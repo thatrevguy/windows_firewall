@@ -1,3 +1,6 @@
+require 'win32ole'
+require 'json'
+
 Facter.add('firewall_rules') do
   confine :operatingsystem => 'windows'
   setcode do
