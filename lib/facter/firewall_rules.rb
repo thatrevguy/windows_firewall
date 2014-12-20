@@ -1,5 +1,19 @@
 require 'win32ole'
 
+class WIN32OLE
+  def select(attr_name, value)
+    selected = Array.new()
+    self.each do |x|
+      x_value = x.invoke(attr_name)
+      if x_value =~ /^#{value}$/i or x_value == value
+        selected.push(x)
+      end
+    end
+
+    return selected
+  end
+end
+
 Facter.add(:firewall_rules) do
   confine :operatingsystem => 'windows'
   setcode do
