@@ -122,6 +122,9 @@ Rules can be defined using json or yaml data resource. Below is a json example:
 ####`tools\generate_rule_definitions.ps1`
 Powershell script for generating JSON baseline rules from pre-existing enabled advfirewall rules on a Windows system.
 
+####`hieradata\base_windows_rules.json`
+A pre-generated json hiera resource to get started.
+
 ##Usage
 
 ###Classes
