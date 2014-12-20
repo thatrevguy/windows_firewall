@@ -11,7 +11,7 @@
     * [Classes](#classes)
     * [Rule Parameters](#rule-parameters)
 5. [Implementation - An under-the-hood peek at what this module is doing](#implementation)
-    * [Templates](#templates)
+    * [Types](#types)
 6. [Limitations - OS compatibility, etc.](#limitations)
 7. [Release Notes - Notes on the most recent updates to the module](#release-notes)
 
@@ -132,7 +132,7 @@ Determines inbound policy for all profiles. If not included, module will assume 
 #####`out_policy`
 Determines outbound policy for all profiles. If not included, module will assume that outbound policy is AllowOutbound. Valid values are 'AllowOutbound' and 'BlockOutbound'.
 
-#####`control_rules`
+#####`apply_rules`
 Determines whether or not module applies rules defined in hiera. Valid values are 'true' and 'false'.
 <br/> **_WARNING:_** Enabling this makes puppet the authoritative source for ALL of the system's firewall rules. Any rules that do not match something defined in hiera will be disabled. Make sure you have console access when testing.
 
@@ -241,13 +241,18 @@ Specifies edge traversal options. Following options are valid:
 
 ###Types
 
-#### [`firewall_rules`]
-Loops over generated rules and applies rules if any of the following conditions exist:
+#### [`firewall_rule`]
+Loops over rulesn provided by hiera and applies them if any of the following conditions exist:
 * 'System defined rules that should be disabled.'
 * 'Puppet defined rules that due not match their system rule counterpart or do not exist.'
 * 'Puppet defined rules that are set as absent but still exist on system.'
 
-Contains all cmdlts for operating with windows firewall rules.
+```puppet
+firewall_rule { 'rules': 
+    apply_rules   => $apply_rules,
+    rule_hash   => hiera_hash($rule_key),
+}
+```
 
 ##Reference
 
