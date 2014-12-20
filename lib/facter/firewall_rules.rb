@@ -40,6 +40,6 @@ Facter.add(:firewall_rules) do
       rule_hash[rule.name] = attr_hash
     end
 
-    return rule_hash.to_json.to_s
+    rule_hash.to_json.to_s
   end
 end
