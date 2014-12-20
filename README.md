@@ -242,7 +242,7 @@ Specifies edge traversal options. Following options are valid:
 ###Types
 
 #### [`firewall_rule`]
-Loops over rulesn provided by hiera and applies them if any of the following conditions exist:
+Loops over rules provided by hiera and applies them if any of the following conditions exist:
 * 'System defined rules that should be disabled.'
 * 'Puppet defined rules that due not match their system rule counterpart or do not exist.'
 * 'Puppet defined rules that are set as absent but still exist on system.'
