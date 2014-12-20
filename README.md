@@ -11,7 +11,7 @@
     * [Classes](#classes)
     * [Rule Parameters](#rule-parameters)
 5. [Implementation - An under-the-hood peek at what this module is doing](#implementation)
-    * [Types](#types)
+    * [Custom Types](#custom-types)
 6. [Limitations - OS compatibility, etc.](#limitations)
 7. [Release Notes - Notes on the most recent updates to the module](#release-notes)
 
@@ -239,7 +239,7 @@ Specifies edge traversal options. Following options are valid:
 
 ##Implementation
 
-###Types
+###Custom Types
 
 #### [`firewall_rule`]
 Loops over rules provided by hiera and applies them if any of the following conditions exist:
