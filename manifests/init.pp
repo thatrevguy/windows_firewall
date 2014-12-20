@@ -27,7 +27,7 @@ class windows_firewall (
             }->
             firewall_rule { 'rules':
                 apply_rules => $apply_rules,
-                rule_hash => hiera_hash($rule_key),
+                rule_hash   => hiera_hash($rule_key),
             }~>
             class { 'windows_firewall::postrun_facts':
                 enabled => $postrun_facts,
