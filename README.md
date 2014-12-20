@@ -7,6 +7,7 @@
     * [Rule Enforcement Process - What is it thinking?](#rule-enforcement-process)
 3. [Setup - Basics of getting started with windows_firewall](#setup)
     * [Beginning with windows_firewall - Installation](#beginning-with-windows_firewall)
+    * [Tools - Stuff that will help](#tools)
 4. [Usage - Classes, defined types, and their parameters available for configuration](#usage)
     * [Classes](#classes)
     * [Rule Parameters](#rule-parameters)
@@ -115,6 +116,12 @@ Rules can be defined using json or yaml data resource. Below is a json example:
   }
 }
 ```
+
+###Tools
+
+####`tools\generate_rule_definitions.ps1`
+Powershell script for generating JSON baseline rules from pre-existing enabled advfirewall rules on a Windows system.
+
 ##Usage
 
 ###Classes
