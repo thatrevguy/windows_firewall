@@ -86,8 +86,8 @@ class { 'windows_firewall':
     profile_state => 'on',
     in_policy     => 'BlockInbound',
     out_policy    => 'AllowOutbound',
-    apply_rules => true,
-    rule_key => 'windows_networks',
+    apply_rules   => true,
+    rule_key      => 'windows_networks',
     postrun_facts => true,
 }
 ```
