@@ -196,7 +196,7 @@ Specifies types and codes if protocol is ICMP. Format is 'Type:Code'. Do not att
 Sets the direction of the exception rule, either: 'In' or 'Out'. Defaults to 'In'.
 
 #####`interfaces`
-Sets network interfaces rule applies to. Accepts a comma delimited list of network interface friendly names. Defaults to ''.
+Sets network interfaces rule applies to. Accepts an array of network interface friendly names. Defaults to ''.
 
 #####`interface_types`
 Sets interface types rule applies to. Following interface types are valid:
