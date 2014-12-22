@@ -6,7 +6,7 @@ $SystemRules = (New-Object -ComObject HNetCfg.FwPolicy2).Rules
 #Would use get-member but it does not preserve original object attribute order.
 #You can define attributes in your json/yaml hiera data source out of order if you wish.
 #'firewall_rule' custom type will ensure proper order before building rule objects with 'rule' provider.
-$AttrNames = ((New-Object -ComObject HNetCfg.FwRule |  ConvertTo-Csv)[1].split(',') -replace '"', '')
+$AttrNames = ((New-Object -ComObject HNetCfg.FwRule | ConvertTo-Csv)[1].split(',') -replace '"', '')
 
 #Make sure system rules that you are generating this json for all have UNIQUE names.
 #This is a must as duplicate keys are not allowed and windows_firewall module prunes duplicate names caught on advfirewall.
@@ -20,14 +20,14 @@ foreach($SystemRule in ($SystemRules | where {$_.enabled -eq $true} | Sort-Objec
   {
     $AttrValue = $SystemRule.$AttrName
     if ($AttrValue)
-	{
+{
       while($AttrName -cmatch "^.*[a-z](?=[A-Z])")
       {
         $AttrName = $AttrName.Insert($Matches[0].Length, '_')
       }
 
       $AttrHash.add($AttrName.toLower(), $AttrValue)
-	}
+}
   }
 
   if($RuleHash[$SystemRule.Name] -ne $Null)
@@ -45,7 +45,7 @@ foreach($SystemRule in ($SystemRules | where {$_.enabled -eq $true} | Sort-Objec
 $JSON = @{'windows_networks' = $RuleHash} | ConvertTo-Json
 $JSON = $JSON -split "\n"
 $JSON = $JSON | foreach{$_ -replace "^\s+", ''}
-$JSON = $JSON | foreach{$_ -replace ":\s+(?=({|`"|\d))", ': '}
+$JSON = $JSON | foreach{$_ -replace ":\s+(?=({|`"|\d|\w))", ': '}
 for($x=0; $x -lt 2; $x++){$i=0; $JSON = $JSON | foreach{if($i -gt $x -and $i -lt $JSON.Count-1-$x){$_.Insert(0, '  '); $i++}else{$_; $i++}}}
 $JSON = $JSON | foreach{if($_ -match "^\s+`".*`":\s(?!{)"){$_.Insert(0, '  ')}else{$_}}
 $JSON -join "" | Out-File $Path -Encoding ascii
