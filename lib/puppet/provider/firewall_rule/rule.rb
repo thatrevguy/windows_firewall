@@ -79,7 +79,7 @@ def set_rule(system_rules, puppet_rule, attr_names)
     begin
       set_attr(rule, puppet_rule, attr_names)
     rescue WIN32OLERuntimeError => error
-      attr_recovery(system_rules, puppet_rule, rule, error)
+      attr_recovery(system_rules, puppet_rule, rule, attr_names, error)
     end
   end
 end
