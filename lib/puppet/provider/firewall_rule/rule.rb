@@ -62,10 +62,13 @@ def set_rule(system_rules, puppet_rule, attr_names)
     end
   end
 
-  def attr_recovery(system_rule, error)
+  def attr_recovery(system_rules, puppet_rule, system_rule, error)
     case error.to_s
     when /.*OLE method `protocol':.*/i
       system_rule.setproperty('IcmpTypesAndCodes',  nil)
+    when /.*OLE method `(application|service)name':.*/i
+      remove_rule(system_rules, puppet_rule.name, false)
+      system_rules.add(puppet_rule)
     else
       raise WIN32OLERuntimeError, error
     end
@@ -75,16 +78,18 @@ def set_rule(system_rules, puppet_rule, attr_names)
     begin
       set_attr(rule, puppet_rule, attr_names)
     rescue WIN32OLERuntimeError => error
-      attr_recovery(rule, error)
+      attr_recovery(system_rules, puppet_rule, rule, error)
       set_attr(rule, puppet_rule, attr_names)
     end
   end
 end
 
-def prune_rule(system_rules, name, count)
-  while count > 1 do
+def remove_rule(system_rules, name, prune_flag)
+  rule_count = system_rules.select('name', name).count
+  if prune_flag x=1 else x=0 end 
+  while rule_count > x do
     system_rules.remove(name)
-    count = count - 1
+    rule_count = rule_count - 1
   end
 end
 
@@ -108,7 +113,7 @@ def ensure_rules(rule_hash, check_flag)
 
       if rule_count > 1
         return 'mismatch' if check_flag
-        prune_rule(system_rules, puppet_rule.name, rule_count)
+        remove_rule(system_rules, puppet_rule.name, true)
       end
     end
   end
@@ -116,12 +121,8 @@ def ensure_rules(rule_hash, check_flag)
   def absent_rules(system_rules, rule_hash, check_flag)
     rule_hash.each do |name, rule|
       if rule['ensure'] == 'absent'
-        rule_count = system_rules.select('name', name).count
-        while rule_count > 0 do
-          return 'mismatch' if check_flag
-          system_rules.remove(name)
-          rule_count = rule_count - 1
-        end
+        return 'mismatch' if check_flag and system_rules.select('name', name).count > 0
+        remove_rule(system_rules, name, false)
       end
     end
   end
