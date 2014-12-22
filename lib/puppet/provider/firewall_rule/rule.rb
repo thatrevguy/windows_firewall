@@ -86,7 +86,7 @@ end
 
 def remove_rule(system_rules, name, prune_flag)
   rule_count = system_rules.select('name', name).count
-  if prune_flag x=1 else x=0 end 
+  if prune_flag then x=1 else x=0 end 
   while rule_count > x do
     system_rules.remove(name)
     rule_count = rule_count - 1
