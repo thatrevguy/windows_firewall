@@ -283,6 +283,7 @@ This module is tested on the following platforms:
 Submit issues or pull requests to [GitHub](https://github.com/hathoward/windows_firewall)
 
 ##Release-Notes
+* 0.2.1 updated JSON rule generator tool.
 * 0.2.0 updated to ruby-centric code base. Powershell dep removed.
 * 0.1.5 (pcallewaert) - fixes firewall_policy breaks facts on linux
 * 0.0.8 option to update facts post configuration added
