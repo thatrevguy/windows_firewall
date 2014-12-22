@@ -54,18 +54,19 @@ def validate_rule(system_rules, puppet_rule, attr_names)
 end
 
 def set_rule(system_rules, puppet_rule, attr_names)
-  def set_attr(sys_rule, puppet_rule, attr_names) 
+  def set_attr(system_rule, puppet_rule, attr_names) 
     attr_names.each do |attr_name|
-      if sys_rule.invoke(attr_name.to_s) != puppet_rule.invoke(attr_name.to_s)
-        sys_rule.setproperty(attr_name.to_s, puppet_rule.invoke(attr_name.to_s))
+      if system_rule.invoke(attr_name.to_s) != puppet_rule.invoke(attr_name.to_s)
+        system_rule.setproperty(attr_name.to_s, puppet_rule.invoke(attr_name.to_s))
       end
     end
   end
 
-  def attr_recovery(system_rules, puppet_rule, system_rule, error)
+  def attr_recovery(system_rules, puppet_rule, system_rule, attr_names, error)
     case error.to_s
     when /.*OLE method `protocol':.*/i
       system_rule.setproperty('IcmpTypesAndCodes',  nil)
+      set_attr(system_rule, puppet_rule, attr_names)
     when /.*OLE method `(application|service)name':.*/i
       remove_rule(system_rules, puppet_rule.name, false)
       system_rules.add(puppet_rule)
@@ -79,7 +80,6 @@ def set_rule(system_rules, puppet_rule, attr_names)
       set_attr(rule, puppet_rule, attr_names)
     rescue WIN32OLERuntimeError => error
       attr_recovery(system_rules, puppet_rule, rule, error)
-      set_attr(rule, puppet_rule, attr_names)
     end
   end
 end
