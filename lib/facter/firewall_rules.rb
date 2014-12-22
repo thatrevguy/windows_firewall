@@ -19,8 +19,9 @@ Facter.add(:firewall_rules) do
     end
 
     system_rules = WIN32OLE.new("HNetCfg.FwPolicy2").rules
-    rule_hash = Hash.new()
+    rule_array = Array.new()
     attr_names = Hash.new()
+    attr_names['name'] = 'name'
     attr_names['protocol'] = 'protocol'
     attr_names['localports'] = 'local_ports'
     attr_names['remoteports'] = 'remote_ports'
@@ -37,9 +38,9 @@ Facter.add(:firewall_rules) do
           attr_hash[attr_names[key]] = attr_value
         end
       end
-      rule_hash[rule.name] = attr_hash
+      rule_array.push(attr_hash)
     end
 
-    rule_hash.to_json.to_s
+    rule_array.to_json.to_s
   end
 end
