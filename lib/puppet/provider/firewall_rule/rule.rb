@@ -1,166 +1,117 @@
 require 'win32ole'
 
-class WIN32OLE
-  def select(attr_name, value)
-    selected = Array.new()
-    self.each do |x|
-      x_value = x.invoke(attr_name)
-      if x_value =~ /^#{value}$/i or x_value == value
-        selected.push(x)
-      end
+class Firewall_Rule
+  def initialize(resource)
+    @hnet_rule = WIN32OLE.new("HNetCfg.FWRule")
+    resource_hash = resource.to_hash
+    property_name_array = Array.new
+    @hnet_rule.ole_get_methods.each do |property|
+      property_name_array << property.to_s.downcase
     end
 
-    return selected
-  end
-end
-
-def generate_rules(rule_hash)
-  rule_array = Array.new()
-  rule_hash.each do |name, rule|
-    if rule['ensure'] == 'present'
-      rule_attr = Hash.new()
-      rule_attr['name'] = name
-      rule.keys.each do |key|
-        if key != 'ensure'
-          rule_attr[key.split('_').join] = rule[key]
-        end
-      end
-
-      hnet_rule = WIN32OLE.new("HNetCfg.FWRule")
-      rule_attr.keys.each do |key|
-        if rule_attr[key]
-          message = "Rule \'%s\' %s attribute value of \'%s\' is invalid." % [name, key, rule_attr[key].to_s]
-          hnet_rule.setproperty(key, rule_attr[key]) rescue raise ArgumentError, message
-        end
-      end
-
-      rule_array.push(hnet_rule)
-    end
-  end
-
-  return rule_array
-end
-
-def validate_rule(system_rules, puppet_rule, attr_names)
-    system_rules.select('name', puppet_rule.name).each do |rule|
-      attr_names.each do |attr_name|
-        if rule.invoke(attr_name.to_s) != puppet_rule.invoke(attr_name.to_s)
-          return false
-        end
-      end
-    end
-
-  return true
-end
-
-def set_rule(system_rules, puppet_rule, attr_names)
-  def set_attr(system_rule, puppet_rule, attr_names) 
-    attr_names.each do |attr_name|
-      if system_rule.invoke(attr_name.to_s) != puppet_rule.invoke(attr_name.to_s)
-        system_rule.setproperty(attr_name.to_s, puppet_rule.invoke(attr_name.to_s))
+    resource_hash.each_key do |key|
+      parsed_key = key.to_s.split('_').join
+      if property_name_array.include?(parsed_key)
+        @hnet_rule.setproperty(parsed_key, resource_hash[key])
       end
     end
   end
 
-  def attr_recovery(system_rules, puppet_rule, system_rule, attr_names, error)
-    case error.to_s
-    when /.*OLE method `protocol':.*/i
-      system_rule.setproperty('IcmpTypesAndCodes',  nil)
-      set_attr(system_rule, puppet_rule, attr_names)
-    when /.*OLE method `(application|service)name':.*/i
-      remove_rule(system_rules, puppet_rule.name, false)
-      system_rules.add(puppet_rule)
-    else
-      raise WIN32OLERuntimeError, error
-    end
+  def hnet_rule
+    return @hnet_rule
   end
-
-  system_rules.select('name', puppet_rule.name).each do |rule|
-    begin
-      set_attr(rule, puppet_rule, attr_names)
-    rescue WIN32OLERuntimeError => error
-      attr_recovery(system_rules, puppet_rule, rule, attr_names, error)
-    end
-  end
-end
-
-def remove_rule(system_rules, name, prune_flag)
-  rule_count = system_rules.select('name', name).count
-  if prune_flag then x=1 else x=0 end 
-  while rule_count > x do
-    system_rules.remove(name)
-    rule_count = rule_count - 1
-  end
-end
-
-def ensure_rules(rule_hash, check_flag)
-  system_rules = WIN32OLE.new("HNetCfg.FwPolicy2").rules
-  puppet_rules = generate_rules(rule_hash)
-
-  def present_rules(system_rules, puppet_rules, check_flag)
-    attr_names = WIN32OLE.new("HNetCfg.FWRule").ole_get_methods
-    puppet_rules.each do |puppet_rule|
-      rule_count = system_rules.select('name', puppet_rule.name).count
-      if rule_count > 0
-        if !validate_rule(system_rules, puppet_rule, attr_names)
-          return 'mismatch' if check_flag
-          set_rule(system_rules, puppet_rule, attr_names)
-        end
-      else
-        return 'mismatch' if check_flag
-        system_rules.add(puppet_rule)
-      end
-
-      if rule_count > 1
-        return 'mismatch' if check_flag
-        remove_rule(system_rules, puppet_rule.name, true)
-      end
-    end
-  end
-
-  def absent_rules(system_rules, rule_hash, check_flag)
-    rule_hash.each do |name, rule|
-      if rule['ensure'] == 'absent'
-        return 'mismatch' if check_flag and system_rules.select('name', name).count > 0
-        remove_rule(system_rules, name, false)
-      end
-    end
-  end
-
-  def disable_rules(system_rules, puppet_rules, check_flag)
-    system_rule_array = Array.new()
-    hash_rule_array = Array.new()
-    system_rules.each do |rule| system_rule_array.push(rule.name) end
-    puppet_rules.each do |rule| hash_rule_array.push(rule.name) end
-
-    (system_rule_array - hash_rule_array).sort.uniq.each do |name|
-      system_rules.select('name', name).each do |rule|
-        if rule.enabled
-          return 'mismatch' if check_flag
-          rule.setproperty('enabled', false)
-        end
-      end
-    end
-  end
-  
-  
-  return 'mismatch' if present_rules(system_rules, puppet_rules, check_flag) == 'mismatch'
-  return 'mismatch' if absent_rules(system_rules, rule_hash, check_flag) == 'mismatch'
-  return 'mismatch' if disable_rules(system_rules, puppet_rules, check_flag) == 'mismatch'
 end
 
 Puppet::Type.type(:firewall_rule).provide(:rule) do
-  desc "Configures rules"
+  desc "Configures rule"
 
-  def rule_hash
-    if ensure_rules(@resource.should(:rule_hash), true) == 'mismatch'
-      return "mismatch found"
-    else
-      return @resource.should(:rule_hash)
+  mk_resource_methods
+
+  def self.instances
+    system_rules = WIN32OLE.new("HNetCfg.FwPolicy2").rules
+    system_rules.each.collect do |system_rule|
+      new( :name => system_rule.invoke('name'),
+           :ensure => :present,
+           :description => system_rule.invoke('description'),
+           :application_name => system_rule.invoke('applicationname'),
+           :service_name => system_rule.invoke('servicename'),
+           :protocol => system_rule.invoke('protocol'),
+           :local_ports => system_rule.invoke('localports'),
+           :remote_ports => system_rule.invoke('remoteports'),
+           :local_addresses => system_rule.invoke('localaddresses'),
+           :remote_addresses => system_rule.invoke('remoteaddresses'),
+           :icmp_types_and_codes => system_rule.invoke('icmptypesandcodes'),
+           :direction => system_rule.invoke('direction'),
+           :interfaces => system_rule.invoke('interfaces'),
+           :interface_types => system_rule.invoke('interfacetypes'),
+           :enabled => system_rule.invoke('enabled'),
+           :grouping => system_rule.invoke('grouping'),
+           :profiles => system_rule.invoke('profiles'),
+           :edge_traversal => system_rule.invoke('edgetraversal'),
+           :action =>system_rule.invoke('action'),
+           :edge_traversal_options => system_rule.invoke('edgetraversaloptions')
+      )
     end
   end
+
+  def self.prefetch(resources)
+    system_rules = instances
+    resources.each do |name, resource|
+      if provider = system_rules.find{ |item| item.name == name }
+        resource.provider = provider
+      end
+    end
+  end
+
+  def local_ports
+    if rule_obj.invoke('localports') == @property_hash[:local_ports]
+      return @resource[:local_ports]
+    else
+      return @property_hash[:local_ports]
+    end
+  end
+
+  def remote_ports
+    if rule_obj.invoke('remoteports') == @property_hash[:remote_ports]
+      return @resource[:remote_ports]
+    else
+      return @property_hash[:remote_ports]
+    end
+  end
+
+  def local_addresses
+    if rule_obj.invoke('localaddresses') == @property_hash[:local_addresses]
+      return @resource[:local_addresses]
+    else
+      return @property_hash[:local_addresses]
+    end
+  end
+
+  def remote_addresses
+    if rule_obj.invoke('remoteaddresses') == @property_hash[:remote_addresses]
+      return @resource[:remote_addresses]
+    else
+      return @property_hash[:remote_addresses]
+    end
+  end
+
+  def create
+
+  end
   
-  def rule_hash=(value)
-    ensure_rules(@resource.should(:rule_hash), false) if @resource[:apply_rules]
+  def delete
+
+  end
+  
+  def exists?
+    @property_hash [ :ensure ] == :present
+  end
+
+  private
+
+  def rule_obj
+    return @rule_obj if defined?(@rule_obj)
+	@rule_obj = Firewall_Rule.new(@resource).hnet_rule
+    @rule_obj
   end
 end
