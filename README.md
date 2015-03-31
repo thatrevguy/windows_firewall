@@ -247,16 +247,34 @@ Specifies edge traversal options. Following options are valid:
 ###Custom Types
 
 #### [`firewall_rule`]
-Loops over rules provided by hiera and applies them if any of the following conditions exist:
-* 'System defined rules that should be removed if purge set to true.'
-* 'Puppet defined rules that do not match their system rule counterpart or do not exist.'
-* 'Puppet defined rules that are set as absent but still exist on system.'
+Checks for following:
+* 'Puppet defined rule that do not match system rule counterpart property values.'
+* 'Puppet defined rule name on system does not occur more than once.'
+* 'Puppet defined rule that does not match ensured state found on system.'
 
 ```puppet
-firewall_rule { 'rules': 
-    rule_hash   => hiera_hash($rule_key),
-    purge_rules => true,
+$defaults = {
+    protocol               => 6,
+    description            => "",
+    application_name       => "",
+    service_name           => "",
+    local_ports            => "",
+    remote_ports           => "",
+    local_addresses        => "",
+    remote_addresses       => "",
+    icmp_types_and_codes   => "",
+    direction              => 1,
+    interfaces             => "",
+    interface_types        => 'All',
+    enabled                => true,
+    grouping               => "",
+    profiles               => 2147483647,
+    edge_traversal         => false,
+    action                 => 1,
+    edge_traversal_options => 0,
 }
+
+create_resources(firewall_rule, hiera_hash('windows_networks'), $defaults)
 ```
 
 ##Reference
