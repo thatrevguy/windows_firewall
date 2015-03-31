@@ -5,7 +5,7 @@ class windows_firewall (
     $profile_state = 'on',
     $in_policy = 'BlockInbound',
     $out_policy = 'AllowOutbound',
-    $apply_rules = false,
+    $purge_rules = false,
     $rule_key = 'windows_networks',
     $postrun_facts = false,
 ){
@@ -25,12 +25,11 @@ class windows_firewall (
                 in_policy  => $in_policy,
                 out_policy => $out_policy,
             }->
-            firewall_rule { 'rules':
-                apply_rules => $apply_rules,
-                rule_hash   => hiera_hash($rule_key),
-            }~>
-            class { 'windows_firewall::postrun_facts':
-                enabled => $postrun_facts,
+            class { 'windows_firewall::rule':
+                rule_key  => $rule_key,
+            }->
+            resources { 'firewall_rule':
+                purge => $purge_rules,
             }
         }
         default: {

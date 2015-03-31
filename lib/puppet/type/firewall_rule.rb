@@ -36,6 +36,7 @@ Puppet::Type.newtype(:firewall_rule) do
 
   newproperty(:protocol) do
     desc "Rule protocol attribute."
+    print WIN32OLE.new("HNetCfg.FWRule")
     validate do |value|
       validation_set = /^(ICMPv4|IGMP|TCP|UDP|IPv6|IPv6Route|IPv6Frag|GRE|ICMPv6|IPv6NoNxt|IPv6Opts|VRRP|PGM|L2TP|1|2|6|17|41|43|44|47|58|59|60|112|113|115)$/i
       message = "Property value of #{value} is invalid."
@@ -113,7 +114,10 @@ Puppet::Type.newtype(:firewall_rule) do
 	
     munge do |value|
       hash = { 'Domain'=>1, 'Private'=>2, 'Public'=>4 }
-      unless value.is_a? Integer 
+      unless value.is_a? Integer
+        intvalue = Integer(value) rescue nil
+		if intvalue return intvalue
+
         i = 0
         value.split(',').each do |profile|
           i += hash[profile]
