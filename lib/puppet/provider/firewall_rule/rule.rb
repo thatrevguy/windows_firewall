@@ -114,10 +114,12 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
   end
   
   def exists?
-    system_rules = WIN32OLE.new("HNetCfg.FwPolicy2").rules
-    rule_count = rule_count(system_rules)
-	if rule_count > 1
-      set_rule(system_rules, rule_count)
+    if @resource[:ensure] == :present
+      system_rules = WIN32OLE.new("HNetCfg.FwPolicy2").rules
+      rule_count = rule_count(system_rules)
+      if rule_count > 1
+        set_rule(system_rules, rule_count)
+      end
     end
 
     return @property_hash[:ensure] == :present
