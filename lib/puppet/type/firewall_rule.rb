@@ -13,6 +13,15 @@ def munge_parser(value, hash)
   end
 end
 
+def int_check(value)
+  intvalue = Integer(value) rescue nil
+  if intvalue
+    return intvalue
+  end
+
+  return value
+end
+
 Puppet::Type.newtype(:firewall_rule) do
   @doc = "Defines Windows advanced firewall rule attributes."
 
@@ -36,7 +45,6 @@ Puppet::Type.newtype(:firewall_rule) do
 
   newproperty(:protocol) do
     desc "Rule protocol attribute."
-    print WIN32OLE.new("HNetCfg.FWRule")
     validate do |value|
       validation_set = /^(ICMPv4|IGMP|TCP|UDP|IPv6|IPv6Route|IPv6Frag|GRE|ICMPv6|IPv6NoNxt|IPv6Opts|VRRP|PGM|L2TP|1|2|6|17|41|43|44|47|58|59|60|112|113|115)$/i
       message = "Property value of #{value} is invalid."
@@ -44,6 +52,7 @@ Puppet::Type.newtype(:firewall_rule) do
     end
 
     munge do |value|
+      value = int_check(value)
       hash = { 'ICMPv4'=>1, 'IGMP'=>2, 'TCP'=>6, 'UDP'=>17, 'IPv6'=>41, 'IPv6Route'=>43, 'IPv6Frag'=>44, 'GRE'=>47, 'ICMPv6'=>58, 'IPv6NoNxt'=>59, 'IPv6Opts'=>60, 'VRRP'=>112, 'PGM'=>113, 'L2TP'=>115 }
       value = munge_parser(value, hash)
     end
@@ -78,6 +87,7 @@ Puppet::Type.newtype(:firewall_rule) do
     end
 
     munge do |value|
+      value = int_check(value)
       hash = { 'In'=>1, 'Out'=>2 }
       value = munge_parser(value, hash)
     end
@@ -93,6 +103,15 @@ Puppet::Type.newtype(:firewall_rule) do
       validation_set = /^(((Wireless|Lan|RemoteAccess)(,(?!$))?(?!\3)){1,2}|All)$/i
       message = "Property value of #{value} is invalid."
       raise ArgumentError, message if value.to_s !~ validation_set
+    end
+
+    munge do |value|
+      newval = []
+      value.split(',').each do |string|
+        newval << string.capitalize
+      end
+
+      return newval.join(',')
     end
   end
 
@@ -113,11 +132,9 @@ Puppet::Type.newtype(:firewall_rule) do
     end
 	
     munge do |value|
+      value = int_check(value)
       hash = { 'Domain'=>1, 'Private'=>2, 'Public'=>4 }
       unless value.is_a? Integer
-        intvalue = Integer(value) rescue nil
-		if intvalue return intvalue
-
         i = 0
         value.split(',').each do |profile|
           i += hash[profile]
@@ -147,6 +164,7 @@ Puppet::Type.newtype(:firewall_rule) do
     end
 
     munge do |value|
+      value = int_check(value)
       hash = { 'Allow'=>1, 'Block'=>0 }
       value = munge_parser(value, hash)
     end
@@ -161,6 +179,7 @@ Puppet::Type.newtype(:firewall_rule) do
     end
 
     munge do |value|
+      value = int_check(value)
       hash = { 'Block'=>0, 'Allow'=>1, 'Defer to App'=>2, 'Defer to User'=>3 }
       value = munge_parser(value, hash)
     end
