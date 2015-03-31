@@ -7,7 +7,6 @@ class windows_firewall (
     $out_policy = 'AllowOutbound',
     $purge_rules = false,
     $rule_key = 'windows_networks',
-    $postrun_facts = false,
 ){
     case $::operatingsystemversion {
         /(Windows Server 2008|Windows Server 2012)/: {

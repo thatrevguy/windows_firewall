@@ -26,7 +26,9 @@ class Firewall_Rule
     resource_hash.each_key do |key|
       parsed_key = key.to_s.split('_').join
       if @property_name_array.include?(parsed_key)
-        @hnet_rule.setproperty(parsed_key, resource_hash[key])
+        if !resource_hash[key].to_s.empty?
+          @hnet_rule.setproperty(parsed_key, resource_hash[key])
+        end
       end
     end
   end
@@ -86,16 +88,18 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
     @property_flush = {}
   end
 
-  ["local_ports","remote_ports","local_addresses","remote_addresses"].each do |method|
+  attributes = ["description","application_name","service_name","protocol","local_ports",
+  "remote_ports","local_addresses","remote_addresses","icmp_types_and_codes",
+  "direction","interfaces","interface_types","enabled","grouping","profiles",
+  "edge_traversal","action","edge_traversal_options"]
+
+  attributes.each do |method|
     define_method(method) do
       validate_attribute(:"#{method}")
     end
   end
 
-  ["description","application_name","service_name","protocol","local_ports",
-   "remote_ports","local_addresses","remote_addresses","icmp_types_and_codes",
-   "direction","interfaces","interface_types","enabled","grouping","profiles",
-   "edge_traversal","action","edge_traversal_options"].each do |method|
+  attributes.each do |method|
     define_method(method + "=") do |value|
       @property_flush[:set_attribute] = true
     end
@@ -125,7 +129,7 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
     end
 
     if @property_flush[:set_attribute]
-      set_rule(system_rules)
+      set_rule(system_rules, rule_count)
     end
 
     if rule_count > 1
@@ -163,7 +167,7 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
     end
   end
 
-  def set_rule(system_rules)
+  def set_rule(system_rules, rule_count)
     def set_attr(system_rule, puppet_rule, attr_names) 
       attr_names.each do |attr_name|
         if system_rule.invoke(attr_name) != puppet_rule.invoke(attr_name)
@@ -172,13 +176,13 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
       end
     end
     
-    def attr_recovery(system_rules, puppet_rule, system_rule, attr_names, error)
+    def attr_recovery(rule_count, system_rules, puppet_rule, system_rule, attr_names, error)
       case error.to_s
       when /.*OLE method `protocol':.*/i
         system_rule.setproperty('IcmpTypesAndCodes',  nil)
         set_attr(system_rule, puppet_rule, attr_names)
       when /.*OLE method `(application|service)name':.*/i
-        remove_rule(system_rules, puppet_rule.name, false)
+        remove_rule(rule_count, system_rules, false)
         system_rules.add(puppet_rule)
       else
         raise WIN32OLERuntimeError, error
@@ -189,7 +193,7 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
       begin
         set_attr(rule, rule_obj.hnet_rule, rule_obj.attributes)
       rescue WIN32OLERuntimeError => error
-        attr_recovery(system_rules, rule_obj.hnet_rule, rule, rule_obj.attributes, error)
+        attr_recovery(rule_count, system_rules, rule_obj.hnet_rule, rule, rule_obj.attributes, error)
       end
     end
   end

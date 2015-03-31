@@ -21,8 +21,7 @@ This is a module that will manage the Microsoft Windows Firewall and its rules.
 
 ##Module Description
 
-The windows_firewall module will primarily manage the state of the windows firewall application on your windows system. Optionally it will also
-allow you to configure any rules that you need to have in place.
+The windows_firewall module will primarily manage the state of the windows firewall application on your windows system. Also applies rules defined in hiera data source.
 
 ###Rule Enforcement Process
     +---------------------------------------------------------------------------------+
@@ -87,9 +86,8 @@ class { 'windows_firewall':
     profile_state => 'on',
     in_policy     => 'BlockInbound',
     out_policy    => 'AllowOutbound',
-    apply_rules   => true,
     rule_key      => 'windows_networks',
-    postrun_facts => true,
+    purge_rules   => true,
 }
 ```
 Windows_firewall loads rules from hiera stored as hashes using key defined in 'rule_key'.
@@ -111,7 +109,8 @@ Rules can be defined using json or yaml data resource. Below is a json example:
     "Rule 3": {
       "description": "This is rule 3.",
       "remote_addresses": "10.1.100.1/24",
-      "local_ports": "3030"
+      "local_ports": "3030",
+      "interfaces": "Ethernet"
     }
   }
 }
@@ -188,16 +187,16 @@ Sets the protocol to be included in rule. Following protocol names are valid:
 * 'L2TP'
 
 #####`local_ports`
-Defines local ports to be included in rule. Defaults to '*'.
+Defines local ports to be included in rule. Defaults to ''.
 
 #####`remote_ports`
-Defines remote ports to be included in rule. Defaults to '*'.
+Defines remote ports to be included in rule. Defaults to ''.
 
 #####`local_addresses`
-Specifies local hosts that can use this rule. Defaults to '*'.
+Specifies local hosts that can use this rule. Defaults to ''.
 
 #####`remote_addresses`
-Specifies remote hosts that can use this rule. Defaults to '*'.
+Specifies remote hosts that can use this rule. Defaults to ''.
 
 #####`icmp_types_and_codes`
 Specifies types and codes if protocol is ICMP. Format is 'Type:Code'. Do not attempt to set if protocol is not ICMP.
@@ -206,7 +205,7 @@ Specifies types and codes if protocol is ICMP. Format is 'Type:Code'. Do not att
 Sets the direction of the exception rule, either: 'In' or 'Out'. Defaults to 'In'.
 
 #####`interfaces`
-Sets network interfaces rule applies to. Accepts an array of network interface friendly names. Defaults to ''.
+Sets network interfaces rule applies to. Accepts a comma delimited list of network interface friendly names. Defaults to ''.
 
 #####`interface_types`
 Sets interface types rule applies to. Following interface types are valid:
@@ -253,14 +252,14 @@ Specifies edge traversal options. Following options are valid:
 
 #### [`firewall_rule`]
 Loops over rules provided by hiera and applies them if any of the following conditions exist:
-* 'System defined rules that should be disabled.'
+* 'System defined rules that should be removed if purge set to true.'
 * 'Puppet defined rules that do not match their system rule counterpart or do not exist.'
 * 'Puppet defined rules that are set as absent but still exist on system.'
 
 ```puppet
 firewall_rule { 'rules': 
-    apply_rules   => $apply_rules,
     rule_hash   => hiera_hash($rule_key),
+    purge_rules => true,
 }
 ```
 
@@ -283,6 +282,7 @@ This module is tested on the following platforms:
 Submit issues or pull requests to [GitHub](https://github.com/hathoward/windows_firewall)
 
 ##Release-Notes
+* 0.3.0 provider and type re-written. postrun_facts dropped. purge_rules added.
 * 0.2.1 updated JSON rule generator tool.
 * 0.2.0 updated to ruby-centric code base. Powershell dep removed.
 * 0.1.5 (pcallewaert) - fixes firewall_policy breaks facts on linux

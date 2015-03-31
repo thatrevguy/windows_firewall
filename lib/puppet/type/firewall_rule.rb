@@ -95,6 +95,9 @@ Puppet::Type.newtype(:firewall_rule) do
 
   newproperty(:interfaces) do
     desc "Rule interfaces attribute."
+    munge do |value|
+      return value.split(',')
+    end
   end
 
   newproperty(:interface_types) do
