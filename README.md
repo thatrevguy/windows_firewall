@@ -248,7 +248,7 @@ Specifies edge traversal options. Following options are valid:
 
 #### [`firewall_rule`]
 Checks for following:
-* 'Puppet defined rule that do not match system rule counterpart property values.'
+* 'Puppet defined rule that does not match system rule counterpart property values.'
 * 'Puppet defined rule name on system does not occur more than once.'
 * 'Puppet defined rule that does not match ensured state found on system.'
 
