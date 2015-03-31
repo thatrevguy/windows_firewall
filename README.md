@@ -148,8 +148,8 @@ Determines whether or not module applies rules defined in hiera. Valid values ar
 #####`rule_key`
 Determines what key name is used to load firewall rules from hiera.
 
-#####`postrun_facts`
-Determines whether or not to run "puppet facts upload" if a configuration change occurs.
+#####`purge_rules`
+Determines whether or not to purge unmanaged firewall_rule resources on system.
 Valid values are 'true' and 'false'.
 
 ###Rule Parameters
