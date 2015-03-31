@@ -1,6 +1,6 @@
 {
   "name": "thoward-windows_firewall",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "author": "thoward",
   "summary": "puppet windows firewall module",
   "license": "Apache-2.0",

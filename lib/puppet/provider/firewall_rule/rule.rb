@@ -114,14 +114,19 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
   end
   
   def exists?
-    @property_hash [ :ensure ] == :present
+    system_rules = WIN32OLE.new("HNetCfg.FwPolicy2").rules
+    rule_count = rule_count(system_rules)
+	if rule_count > 1
+      set_rule(system_rules, rule_count)
+    end
+
+    return @property_hash[:ensure] == :present
   end
 
   def flush
     system_rules = WIN32OLE.new("HNetCfg.FwPolicy2").rules
-    rule_count = rule_count(system_rules)
     if @property_flush[:ensure] == :absent
-      remove_rule(rule_count, system_rules, false)
+      remove_rule(rule_count(system_rules), system_rules, false)
       return
     elsif @property_flush[:ensure] == :present
       system_rules.add(rule_obj.hnet_rule)
@@ -129,12 +134,7 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
     end
 
     if @property_flush[:set_attribute]
-      set_rule(system_rules, rule_count)
-    end
-
-    if rule_count > 1
-      system_rules.add(rule_obj)
-      remove_rule(rule_count, system_rules, true)
+      set_rule(system_rules, rule_count(system_rules))
     end
   end
 
@@ -195,6 +195,10 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
       rescue WIN32OLERuntimeError => error
         attr_recovery(rule_count, system_rules, rule_obj.hnet_rule, rule, rule_obj.attributes, error)
       end
+    end
+
+    if rule_count > 1
+      remove_rule(rule_count, system_rules, true)
     end
   end
 end
