@@ -296,6 +296,7 @@ This module is tested on the following platforms:
 Submit issues or pull requests to [GitHub](https://github.com/hathoward/windows_firewall)
 
 ##Release-Notes
+* 0.3.2 puppet notice generated on rule de-dupe.
 * 0.3.0 provider and type re-written. postrun_facts dropped. purge_rules added.
 * 0.2.1 updated JSON rule generator tool.
 * 0.2.0 updated to ruby-centric code base. Powershell dep removed.
