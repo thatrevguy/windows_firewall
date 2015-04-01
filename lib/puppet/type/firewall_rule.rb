@@ -190,7 +190,7 @@ Puppet::Type.newtype(:firewall_rule) do
 
   newproperty(:count) do
     desc "Number of resources that can exist with same name. Always keeps this set to 1"
-    defaultto '1'
-	newvalues('1')
+    defaultto 1
+	newvalues(1)
   end
 end
