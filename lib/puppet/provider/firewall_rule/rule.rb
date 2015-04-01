@@ -119,9 +119,10 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
   end
 
   def flush
+    rule_count = @property_hash[:count].to_s.to_i
     system_rules = WIN32OLE.new("HNetCfg.FwPolicy2").rules
     if @property_flush[:ensure] == :absent
-      remove_rule(system_rules, false)
+      remove_rule(rule_count, system_rules, false)
       return
     elsif @property_flush[:ensure] == :present
       system_rules.add(rule_obj.hnet_rule)
@@ -129,7 +130,7 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
     end
 
     if @property_flush[:set_rule]
-      set_rule(system_rules)
+      set_rule(rule_count, system_rules)
     end
   end
 
@@ -166,8 +167,8 @@ Puppet::Type.type(:firewall_rule).provide(:rule) do
     end
   end
 
-  def set_rule(system_rules)
-    @rule_count = @property_hash[:count].to_s.to_i
+  def set_rule(rule_count, system_rules)
+    @rule_count = rule_count
     def set_attr(system_rule, puppet_rule, attr_names) 
       attr_names.each do |attr_name|
         if system_rule.invoke(attr_name) != puppet_rule.invoke(attr_name)
