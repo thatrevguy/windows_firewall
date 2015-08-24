@@ -1,5 +1,5 @@
 #Encapsulates policy and rule classes.
-#Can disable postrun_facts and control_rules. 
+#Can disable postrun_facts and control_rules.
 #"rule_key" value used to identify key name that stores firewall rules in Hiera.
 class windows_firewall (
     $profile_state = 'on',
@@ -8,31 +8,37 @@ class windows_firewall (
     $purge_rules = false,
     $rule_key = 'windows_networks',
 ){
-    case $::operatingsystemversion {
-        /(Windows Server 2008|Windows Server 2012)/: {
-            $firewall_name = 'MpsSvc'
+    if $::os['family'] == 'windows' {
+      case $::os['release']['major'] {
+          /(2008|2008 R2|2012|2012 R2)/: {
+              $firewall_name = 'MpsSvc'
 
-            service { 'windows_firewall':
-                ensure => 'running',
-                name   => $firewall_name,
-                enable => true,
-            }->
-            class { 'windows_firewall::profile':
-                profile_state => $profile_state,
-            }->
-            class { 'windows_firewall::policy':
-                in_policy  => $in_policy,
-                out_policy => $out_policy,
-            }->
-            class { 'windows_firewall::rule':
-                rule_key  => $rule_key,
-            }->
-            resources { 'firewall_rule':
-                purge => $purge_rules,
-            }
-        }
-        default: {
-            notify {"${::operatingsystemversion} not supported": }
-        }
-    }
+              service { 'windows_firewall':
+                  ensure => 'running',
+                  name   => $firewall_name,
+                  enable => true,
+              }->
+              class { 'windows_firewall::profile':
+                  profile_state => $profile_state,
+              }->
+              class { 'windows_firewall::policy':
+                  in_policy  => $in_policy,
+                  out_policy => $out_policy,
+              }->
+              class { 'windows_firewall::rule':
+                  rule_key  => $rule_key,
+              }->
+              resources { 'firewall_rule':
+                  purge => $purge_rules,
+              }
+          }
+          default: {
+              notify {"${::os['release']['major']} not supported": }
+          }
+      }
+  }
+  else
+  {
+    notify {"${::os['family']} not supported": }
+  }
 }
