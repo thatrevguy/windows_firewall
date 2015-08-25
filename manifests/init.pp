@@ -8,8 +8,8 @@ class windows_firewall (
     $purge_rules = false,
     $rule_key = 'windows_networks',
 ){
-    if $::osfamily == 'windows' {
-      case $::operatingsystemmajrelease {
+    if $::os['family'] == 'windows' {
+      case $::os['release']['major'] {
           /(2008|2008 R2|2012|2012 R2)/: {
               $firewall_name = 'MpsSvc'
 
@@ -33,12 +33,12 @@ class windows_firewall (
               }
           }
           default: {
-              notify {"${::operatingsystemmajrelease} not supported": }
+              notify {"${::os['release']['major']} not supported": }
           }
       }
   }
   else
   {
-    notify {"${::osfamily} not supported": }
+    notify {"${::os['family']} not supported": }
   }
 }
