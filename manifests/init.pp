@@ -33,12 +33,12 @@ class windows_firewall (
               }
           }
           default: {
-              notify {"${::operatingsystemmajrelease} not supported": }
+              notify {"${::os['release']['major']} not supported": }
           }
       }
   }
   else
   {
-    notify {"${::osfamily} not supported": }
+    notify {"${::os['family']} not supported": }
   }
 }

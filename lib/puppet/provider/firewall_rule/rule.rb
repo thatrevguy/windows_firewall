@@ -44,6 +44,7 @@ end
 
 Puppet::Type.type(:firewall_rule).provide(:rule) do
   desc "Configures rule"
+  confine :operatingsystem => 'windows'
 
   mk_resource_methods
 
