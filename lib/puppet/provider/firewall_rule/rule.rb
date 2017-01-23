@@ -5,7 +5,7 @@ class WIN32OLE
     selected = Array.new()
     self.each do |x|
       x_value = x.invoke(attr_name)
-      if x_value =~ /^#{value}$/i or x_value == value
+      if x_value =~ /^#{value.inspect}$/i or x_value == value
         selected.push(x)
       end
     end
