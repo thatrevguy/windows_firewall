@@ -1,6 +1,5 @@
 #Applies rules in hiera under specified key name.
-class windows_firewall::rule(
-  $rule_key = 'windows_networks',
+define windows_firewall::rule(
 ) {
     $defaults = {
         protocol               => 6,
@@ -22,5 +21,5 @@ class windows_firewall::rule(
         action                 => 1,
         edge_traversal_options => 0,
     }
-    create_resources(firewall_rule, hiera_hash($rule_key), $defaults)
+    create_resources(firewall_rule, hiera_hash($title), $defaults)
 }

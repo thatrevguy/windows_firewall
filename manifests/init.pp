@@ -25,9 +25,8 @@ class windows_firewall (
                   in_policy  => $in_policy,
                   out_policy => $out_policy,
               }->
-              class { 'windows_firewall::rule':
-                  rule_key  => $rule_key,
-              }->
+              windows_firewall::rule { $rule_key: }
+
               resources { 'firewall_rule':
                   purge => $purge_rules,
               }
